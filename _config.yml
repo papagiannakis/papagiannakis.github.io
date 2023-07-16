@@ -7,7 +7,7 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Dr. George Papagiannakis/ Personal site"
+title                    : "Dr. George Papagiannakis Personal site"
 title_separator          : "-"
 name                     : &name "Dr. George Papagiannakis"
 description              : &description "personal description"
@@ -80,13 +80,13 @@ analytics:
 
 # Site Author
 author:
-  name             : "Your Sidebar Name"
+  name             : "Dr. George Papagiannakis"
   avatar           : "profile.png"
-  bio              : "Your biography for the left-hand sidebar"
-  location         : "Location"
+  bio              : "Computer Scientist, co-founder & CEO, Academic, Professor, Researcher, Entrepreneur"
+  location         : "Geneva, Switzerland & Heraklion, Greece"
   employer         :
-  pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
-  googlescholar    : "http://yourfullgooglescholarurl.com"
+  pubmed           : #"https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
+  googlescholar    : "https://scholar.google.com/citations?user=rUfyI3MAAAAJ&hl=en"
   email            :
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
   uri              :
@@ -96,7 +96,7 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           : "academicpages"
+  github           : "https://github.com/papagiannakis"
   google_plus      :
   keybase          :
   instagram        :
@@ -109,12 +109,14 @@ author:
   stackoverflow    : # http://stackoverflow.com/users/123456/username
   steam            :
   tumblr           :
-  twitter          : "replacethistwitterhandle"
+  twitter          : "https://twitter.com/gpapagian76"
   vine             :
   weibo            :
   xing             :
-  youtube          :
+  youtube          : "https://www.youtube.com/@GeorgePapagiannakis"
   wikipedia        :
+  linkedin         : "https://www.linkedin.com/in/georgepapagiannakis/"
+  medium           : "https://george-papagiannakis.medium.com/"
 
 
 # Reading Files
