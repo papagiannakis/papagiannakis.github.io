@@ -83,7 +83,7 @@ author:
   name             : "Dr. George Papagiannakis"
   avatar           : "profile.png"
   bio              : "Computer Scientist, co-founder & CEO, Academic, Professor, Researcher, Entrepreneur"
-  location         : "Geneva, Switzerland & Heraklion, Greece"
+  location         : "Geneva, Heraklion"
   employer         :
   pubmed           : #"https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
   googlescholar    : "https://scholar.google.com/citations?user=rUfyI3MAAAAJ&hl=en"
@@ -103,7 +103,7 @@ author:
   impactstory      : #"https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
   lastfm           :
   linkedin         :
-  orcid            : "http://orcid.org/yourorcidurl"
+  orcid            : "https://orcid.org/0000-0002-2977-9850"
   pinterest        :
   soundcloud       :
   stackoverflow    : # http://stackoverflow.com/users/123456/username
