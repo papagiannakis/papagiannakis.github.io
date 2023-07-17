@@ -7,7 +7,7 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Post tenebras lux"
+title                    : "Post Tenebras Lux"
 title_separator          : "-"
 name                     : &name "Dr. George Papagiannakis"
 description              : &description "personal description"
