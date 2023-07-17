@@ -7,7 +7,7 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Dr. George Papagiannakis Personal site"
+title                    : "Post tenebras lux"
 title_separator          : "-"
 name                     : &name "Dr. George Papagiannakis"
 description              : &description "personal description"
@@ -102,7 +102,7 @@ author:
   instagram        :
   impactstory      : #"https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
   lastfm           :
-  linkedin         :
+  linkedin         : "https://www.linkedin.com/in/georgepapagiannakis/"
   orcid            : "https://orcid.org/0000-0002-2977-9850"
   pinterest        :
   soundcloud       :
@@ -114,8 +114,7 @@ author:
   weibo            :
   xing             :
   youtube          : "https://www.youtube.com/@GeorgePapagiannakis"
-  wikipedia        :
-  linkedin         : "https://www.linkedin.com/in/georgepapagiannakis/"
+  wikipedia        : 
   medium           : "https://george-papagiannakis.medium.com/"
 
 
