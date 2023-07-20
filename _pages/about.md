@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Dr. George Papagiannakis"
+title: "About"
 excerpt: "About me"
 author_profile: true
 redirect_from: 
@@ -8,8 +8,7 @@ redirect_from:
   - /about.html
 ---
 
-About
-======
+
 Dr. George Papagiannakis, co-founder and CEO of ORamaVR, is a computer scientist specialised in computer graphics systems, extended reality algorithms and geometric computational models. [ORamaVR](https://www.oramavr.com) is a Swiss deep-tech startup that aims to accelerate the world’s transition to medical VR training by offering an IT platform (MAGES-SDK) enabling the mass production of high fidelity medical Virtual Reality Simulations. These simulations are then been used by hospitals, medical device companies, medical schools and medical training centres to train and assess their medical professionals. His academic credentials include serving as Professor of Computer Graphics at the Computer Science department of the University of Crete, Greece, as Affiliated  Research Fellow at the Human Computer Interaction Laboratory of the Institute of Computer Science in the Foundation for Research and Technology Hellas, Heraklion, Greece,  where he leads the CG Group and as visiting Prof of CS at the University of Geneva, Switzerland.
 
 A data-driven personal website
