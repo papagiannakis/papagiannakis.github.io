@@ -14,9 +14,9 @@ For a complete and most updated list of my scientific publications please visit:
 * [OrcID](https://orcid.org/0000-0002-2977-9850)
 * [ORamaVR publications](https://oramavr.com/publications/)
 
-### Selected pubblished research work
+### Selected publications
 
-Selected latest works are also highlighted below:
+Selected latest papers are also highlighted below:
 
 
 {% if author.googlescholar %}
