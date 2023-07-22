@@ -1,13 +1,10 @@
 ---
-layout: archive
-title: "Contact"
 permalink: /contact/
+title: "Contact"
 author_profile: true
 redirect_from:
   - /resume
 ---
-
-{% include base_path %}
 
 ## Contact
 
