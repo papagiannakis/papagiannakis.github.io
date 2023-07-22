@@ -10,5 +10,6 @@ citation: 'Papagiannakis, George. “A computational medical XR discipline.” A
 ---
 
 
-[Download paper here](https://arxiv.org/pdf/2108.04136.pdf)
+[Download paper here](https://arxiv.org/pdf/2108.04136.pdf)  
+
 [Video link here](https://youtu.be/AivgqTCqvqo)
