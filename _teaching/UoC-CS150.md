@@ -4,7 +4,7 @@ collection: teaching
 type: "Undergraduate course"
 permalink: /teaching/UoC-CS150
 venue: "University of Crete, Computer Science Department"
-date: 2012
+date: 2012-02-02
 location: "Heraklion, Crete, Greece"
 ---
 
