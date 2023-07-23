@@ -91,6 +91,9 @@
       {% if author.medium %}
         <li><a href="{{ author.medium }}"><i class="fab fa-fw fa-medium" aria-hidden="true"></i> Medium</a></li>
       {% endif %}
+      {% if author.dblp %}
+      <li><a href="{{ author.dblp }}"><i class="fab fa-fw fa-dblp" aria-hidden="true"></i> DBLP</a></li>
+    {% endif %}
       {% if author.soundcloud %}
         <li><a href="https://soundcloud.com/{{ author.soundcloud }}"><i class="fab fa-fw fa-soundcloud" aria-hidden="true"></i> Soundcloud</a></li>
       {% endif %}
