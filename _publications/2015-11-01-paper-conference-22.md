@@ -6,7 +6,7 @@ excerpt: 'In this work we present a complete methodology for robust authoring of
 date: 2015-11-01
 venue: 'ACM SIGGRAPH Asia 2015'
 paperurl: 'http://papagiannakis.github.io/files/P22-2015-PapaefthymiouGP.pdf'
-citation: 'Papaefthymiou, M., Feng, A., Shapiro, A., Papagiannakis, G., âA fast and robust pipeline for populating mobile AR scenes with gamified virtual charactersâ. ACM SIGGRAPH-ASIA 2015, Symposium On Mobile Graphics and Interactive Applications, Kobe, ACM Press, November 2015'
+citation: 'Papaefthymiou, M., Feng, A., Shapiro, A., Papagiannakis, G., &quot;A fast and robust pipeline for populating mobile AR scenes with gamified virtual characters&quot;, ACM SIGGRAPH-ASIA 2015, Symposium On Mobile Graphics and Interactive Applications, Kobe, ACM Press, November 2015'
 ---
 In this work we present a complete methodology for robust authoring of AR virtual characters powered from a versatile character animation framework (Smartbody), using only mobile devices
 
