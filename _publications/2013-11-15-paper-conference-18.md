@@ -6,7 +6,7 @@ excerpt: 'The main goal and contribution of this work is to show that (automatic
 date: 2013-11-15
 venue: 'ACM SIGGRAPH Asia 2013'
 paperurl: 'https://dl.acm.org/doi/abs/10.1145/2542355.2542369'
-citation: 'George Papagiannakis. 2013. Geometric algebra rotors for skinned character animation blending. In SIGGRAPH Asia 2013 Technical Briefs (SA &apos;13). Association for Computing Machinery, New York, NY, USA, Article 11, 1Ð6. https://doi.org/10.1145/2542355.2542369'
+citation: 'George Papagiannakis. 2013. Geometric algebra rotors for skinned character animation blending. In SIGGRAPH Asia 2013 Technical Briefs (SA &apos;13). Association for Computing Machinery, New York, NY, USA, Article 11, 1-6. https://doi.org/10.1145/2542355.2542369'
 ---
 The main goal and contribution of this work is to show that (automatically generated) computer implementations of geometric algebra (GA) can perform at a faster level compared to standard (dual) quaternion geometry implementations for real-time character animation blending. By this we mean that if some piece of geometry (e.g. Quaternions) is implemented through geometric algebra, the result is as efficient in terms of visual quality and even faster (in terms of computation time and memory usage) as the traditional quaternion and dual quaternion algebra implementation. This should be so even without taking into account certain algorithmic enhancements that geometric algebra may allow in selected applications. This work describes two implementation approaches for quaternion interpolation using Euclidean GA rotors for skinned character animation blending. It also lays the foundation so that GA can be employed for further calculations (skinning, rendering) under a unified geometry computation framework.
 
