@@ -1,23 +1,8 @@
 var addressPoints = [
   [
-    "Heidelberg, Germany",
-    49.4093582,
-    8.694724
-  ],
-  [
-    "Los Angeles, CA",
-    34.0536909,
-    -118.242766
-  ],
-  [
     "Palo Alto, CA",
     37.4443293,
     -122.1598465
-  ],
-  [
-    "Mountain View, CA",
-    37.3893889,
-    -122.0832101
   ],
   [
     "Crans Montana, Switzerland",
@@ -25,14 +10,19 @@ var addressPoints = [
     7.526435803722132
   ],
   [
-    "Yokohama, Japan",
-    35.4443947,
-    139.6367727
-  ],
-  [
     "Milan, Italy",
     45.4641943,
     9.1896346
+  ],
+  [
+    "Mountain View, CA",
+    37.3893889,
+    -122.0832101
+  ],
+  [
+    "Los Angeles, CA",
+    34.0536909,
+    -118.242766
   ],
   [
     "Larnaca, Cyprus",
@@ -50,14 +40,19 @@ var addressPoints = [
     -5.9953403
   ],
   [
-    "Tokyo, Japan",
-    35.6840574,
-    139.7744912
-  ],
-  [
     "online",
     43.59047185,
     3.8595132132013186
+  ],
+  [
+    "Geneva, Switzerland",
+    46.2017559,
+    6.1466014
+  ],
+  [
+    "Heidelberg, Germany",
+    49.4093582,
+    8.694724
   ],
   [
     "Helsinki, Finland",
@@ -65,8 +60,18 @@ var addressPoints = [
     24.9427473
   ],
   [
+    "Tokyo, Japan",
+    35.6821936,
+    139.762221
+  ],
+  [
+    "Yokohama, Japan",
+    35.4443947,
+    139.6367727
+  ],
+  [
     "Harvard University, Boston MA",
-    42.36790855,
-    -71.12678237443698
+    42.3659617,
+    -71.12150636791128
   ]
 ];
