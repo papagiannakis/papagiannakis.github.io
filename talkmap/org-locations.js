@@ -40,6 +40,11 @@ var addressPoints = [
     -5.9953403
   ],
   [
+    "Dubai, United Arab Emirates",
+    25.2653471,
+    55.2924914
+  ],
+  [
     "online",
     43.59047185,
     3.8595132132013186
@@ -61,13 +66,13 @@ var addressPoints = [
   ],
   [
     "Tokyo, Japan",
-    35.6821936,
-    139.762221
+    35.6768601,
+    139.7638947
   ],
   [
     "Yokohama, Japan",
-    35.4443947,
-    139.6367727
+    35.4503381,
+    139.6343802
   ],
   [
     "Harvard University, Boston MA",
