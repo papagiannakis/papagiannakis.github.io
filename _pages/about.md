@@ -36,12 +36,12 @@ He has served as lecturer, senior researcher and research assistant at MIRALab, 
 Key achievements
 ======
 
-- 130+ Scientific Publications (including a Springer-Nature Book: Mixed Reality and Gamification with 100,000+ downloads), 3400+ Citations, h-index: 30
+- 130+ Scientific Publications (including a Springer-Nature Book: Mixed Reality and Gamification with 100,000+ downloads so far), 3400+ Citations, h-index: 30
 - €8M+ in research funding as PI across 20+ projects including an “NVIDIA Academic Grant (2025) for transformer-based AI in XR” and a Marie-Curie Fellowship by the EC Research Executive Agency (2011)
-- Developed MAGES SDK, the leading XR training platform for medical professionals employed in more than 200 organizations worldwide.
+- Developed MAGES SDK, the leading XR training platform for medical professionals employed in more than 200 organizations worldwide by 2024.
 - Pioneered pyGANDALF, a Python-based system for teaching HCI and CG concepts, receiving the Best Education paper award at SIGGRAPH ASIA 2024
 - Co-authored the position paper of Computational Medical XR together with 10 leading institutions worldwide and 15 experts at the intersection of HCI, Medicine, AI and XR
-- Co-Created LIFEPLUS, the first life-size AR character simulation framework employed on the site of ancient Pompeii, Italy
+- Co-Created LIFEPLUS VHD++, the first life-size AR character simulation framework for HCI, employed on the site of ancient Pompeii, Italy in 2002
 - Established Geometric algebra as an HCI enabling technology for neurosymbolic AI and networked computer graphics simulation in 5G and 6G XR environments
 - 15 Awards, including 4 Best paper awards and an Epic-games Mega-grant award
 - 70+ invited/keynote talks worldwide
