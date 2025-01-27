@@ -37,7 +37,7 @@ Key achievements
 ======
 
 - 130+ Scientific Publications (including a Springer-Nature Book: Mixed Reality and Gamification with 100,000+ downloads so far), 3400+ Citations, h-index: 30
-- €8M+ in research funding as PI across 20+ projects including an “NVIDIA Academic Grant (2025) for transformer-based AI in XR” and a Marie-Curie Fellowship by the EC Research Executive Agency (2011)
+- €8M+ in research funding as PI across 20+ projects including an “NVIDIA Academic Grant (2025) for transformer-based AI in XR” and a Marie Sklodowska-Curie (MSCA) Fellowship by the European Research Executive Agency (2011)
 - Developed MAGES SDK, the leading XR training platform for medical professionals employed in more than 200 organizations worldwide by 2024.
 - Pioneered pyGANDALF, a Python-based system for teaching HCI and CG concepts, receiving the Best Education paper award at SIGGRAPH ASIA 2024
 - Co-authored the position paper of Computational Medical XR together with 10 leading institutions worldwide and 15 experts at the intersection of HCI, Medicine, AI and XR
