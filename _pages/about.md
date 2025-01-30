@@ -45,5 +45,5 @@ Key achievements
 - Established Geometric algebra as an HCI enabling technology for neurosymbolic AI and networked computer graphics simulation in 5G and 6G XR environments
 - 15 Awards, including 4 Best paper awards and an Epic-games Mega-grant award
 - 70+ invited/keynote talks worldwide
-- Supervised/Co-supervised 4 post-doc, 20 PhD, 34 MSc and 38 BSc students
+- Supervised/Co-supervised 4 post-doc, 15 PhD, 34 MSc and 38 BSc students
 - 6 journals Editor, 6 funding agencies Evaluator, 13+ Conferences/Workshops Co/Chair
