@@ -1,4 +1,15 @@
-![AI / VR — Eight Decades of Cycles · 1943–2026](./ai-vr-cycles-poster.png)
+---
+title: 'AI / VR — Eight Decades of Cycles · 1943–2026'
+date: 2026-05-16
+permalink: /posts/2026/05/blog-post-1/
+tags:
+  - research
+  - development
+  - AI
+  - XR
+---
+
+![AI / VR — Eight Decades of Cycles · 1943–2026](https://papagiannakis.github.io/files/blog/post1/ai-vr-cycles-poster.png)
 
 # AI / VR — Eight Decades of Cycles
 
@@ -14,7 +25,7 @@ Artificial intelligence and virtual reality have each gone through repeating cyc
 
 This article walks the eighty-three-year cycle in three passes — AI alone, VR alone, then both lanes on a shared axis — followed by three structural takeaways and a complete reference table of every event plotted.
 
-→ **[Open the interactive timeline ↗](./ai-vr-cycles.html)** — hover any of the sixty-four marker events for full context, citations, and confidence flags.
+→ **[Open the interactive timeline ↗](https://papagiannakis.github.io/files/blog/post1/ai-vr-cycles.html)** — hover any of the sixty-four marker events for full context, citations, and confidence flags.
 
 ### How to read the chart
 
@@ -83,9 +94,9 @@ Hype is a near-zero-sum resource. When ChatGPT arrived in late 2022, it didn't m
 
 ## Appendix — Complete timeline event table
 
-All forty-two events plotted on the AI and VR timelines. The same data appears as hover-tooltips in the interactive HTML version. Citations and confidence flags inline; *confidence flag* shown after the description where the assessment is anything other than high.
+All forty-three events plotted on the AI and VR timelines. The same data appears as hover-tooltips in the interactive HTML version. Citations and confidence flags inline; *confidence flag* shown after the description where the assessment is anything other than high.
 
-### Artificial Intelligence (26 events)
+### Artificial Intelligence (27 events)
 
 | Year | Event | What it was & why it mattered |
 |------|-------|-------------------------------|
@@ -115,6 +126,7 @@ All forty-two events plotted on the AI and VR timelines. The same data appears a
 | `2020` | **OpenAI — GPT-3** | 175-billion-parameter language model. First convincing demonstration of in-context / few-shot learning at scale. Spawns the LLM commercial era; copilot-style applications begin appearing throughout 2021–22. |
 | `30 Nov 2022` | **ChatGPT released** | OpenAI releases ChatGPT publicly. Reaches 100M monthly active users within 2 months — the fastest consumer product adoption in history. Generative AI becomes mainstream overnight; cannibalises capital, GPU allocation, and engineering attention from the metaverse. |
 | `2024` | **OpenAI o1 — reasoning at inference** | First production model to use inference-time chain-of-thought reasoning at scale. Paradigm shift from pretrained generation toward deliberative reasoning. Followed by Anthropic's extended thinking, DeepSeek-R1, and similar reasoning systems. |
+| `2026` | **Agentic AI & coding agents — Software 3.0 arrives** | The year LLMs move from chat to autonomous action. Anthropic expands **Claude Code** (a terminal-resident agent that reads, edits, and runs code with full tool use) and the Claude Agent SDK for building custom agents on the same primitives. OpenAI revives the **Codex** name as a cloud-based coding agent paired with the Codex CLI. Open-source equivalents — **Cline / OpenHands / Aider** and similar "OpenClaw" coding agents — proliferate in VS Code and the terminal. Andrej Karpathy popularises **"Software 3.0"**: programs are no longer hand-written (1.0) or learned weights (2.0) but natural-language prompts executed by an LLM at runtime, with the model itself as the new substrate. The first commercial wedge for LLMs beyond chat: developers paying for tokens to ship code, and the start of agents that act on the user's behalf across files, browsers, and APIs. |
 
 ### Virtual Reality / Metaverse (16 events)
 
@@ -135,7 +147,7 @@ All forty-two events plotted on the AI and VR timelines. The same data appears a
 | `28 Oct 2021` | **Facebook → Meta rebrand** | Facebook renames to Meta. Zuckerberg announces the metaverse as the next computing platform and pledges tens of billions in investment. The defining moment of metaverse hype — and, with hindsight, the peak. |
 | `2022` | **Reality Labs loses $13.7B** | Meta's Reality Labs division loses $13.7 billion in fiscal 2022 alone. Cumulative losses since 2019 exceed $36B by year-end. Public scepticism mounts; Meta share price falls; ChatGPT launches one month later and absorbs the remaining oxygen. |
 | `Feb 2024` | **Apple Vision Pro ships** | Apple Vision Pro ships at $3,499. Rebranded as 'spatial computing' rather than VR/metaverse. Premium positioning, hand+eye tracking, dual 4K micro-OLED panels. Production targets reportedly cut within 12 months as the device searches for its killer app. |
-| `2026` | **Today (May 2026)** | Apple has cut Vision Pro production. Meta has pivoted to Quest 3S at $299 — the low-end mainstream play. The metaverse winter is real but partial; the underlying technology continues to improve while public enthusiasm has migrated to AI. *(current state)* |
+| `2026` | **Today (May 2026)** | Apple releases VisionOS 26 and expands release of Vision Pro M5 with 120 hz display dispite controversial press. Meta has pivoted to Quest 3S at $299 — the low-end mainstream play. The metaverse winter is real but partial; the underlying technology continues to significantly compound while public enthusiasm has migrated to agentic AI. *(current state)* |
 
 ---
 

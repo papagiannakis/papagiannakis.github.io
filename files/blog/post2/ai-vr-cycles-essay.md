@@ -13,7 +13,7 @@
 
 I recently produced — with the help of [Anthropic Claude](https://www.anthropic.com) — an eighty-three-year timeline of AI and VR cycles, from McCulloch and Pitts (1943) to today. The visualisation is rigorous and the analysis is largely correct: a shared winter in the 1990s, a shared ignition in 2012, and a 2022–2024 anti-correlation in which ChatGPT consumed the oxygen the metaverse pitch had just inhaled.
 
-The full interactive chart and all forty-two events with their citations live here: **[the timeline article ↗](./ai-vr-cycles.md)**.
+The full interactive chart and all forty-two events with their citations live here: **[the timeline article ↗](https://papagiannakis.github.io/posts/2026/05/blog-post-1/)**.
 
 The chart is also, from the inside, profoundly misleading.
 
@@ -25,9 +25,9 @@ The chart tracks headlines, capital allocation, and product launches. It does no
 
 In the year the chart marks as the deepest point of the VR winter — the 1996–2012 stretch greyed out on most timelines as a wasteland — I was at MIRALab in Geneva with Professor Nadia Magnenat Thalmann, working on two projects that, with twenty-three years of distance, look more like first drafts of the present than artefacts of a dead era.
 
-The first was **LIFEPLUS** — an EU IST project, ranked #1 of 150 submissions in its call, in which we deployed life-size augmented reality characters reanimating ancient frescoes in Pompeii on a mobile head-mounted display [(Papagiannakis et al., 2005)](#references). To the best of my knowledge, this was the first time virtual humans walked through ruins in real time on a wearable AR system. The character-simulation framework underneath that work — VHD++ — still circulates in MR research today.
+> The first was **LIFEPLUS** — an EU IST project, ranked #1 of 150 submissions in its call, in which we deployed life-size augmented reality characters reanimating ancient frescoes in Pompeii on a mobile head-mounted display [(Papagiannakis et al., 2005)](#references). To the best of my knowledge, this was the first time virtual humans walked through ruins in real time on a wearable AR system. The character-simulation framework underneath that work — VHD++ — still circulates in MR research today.
 
-The second was **JUST** — a virtual reality system for health emergency training. One of the earliest serious attempts at medical VR education, decades before "MedXR" was a market category, and roughly fifteen years before I founded ORamaVR around the same problem statement.
+> The second was **JUST** — a virtual reality system for health emergency training, presented at the 9th Eurographics Workshop on Virtual Environments [(Ponder et al., 2003)](#references). One of the earliest serious attempts at medical VR education, decades before "MedXR" was a market category, and roughly fifteen years before I founded ORamaVR around the same problem statement.
 
 Both deployed in 2002. Both during the deepest part of what the chart calls a winter. Neither felt cold.
 
@@ -46,21 +46,21 @@ Read the technical stack quietly, year by year:
 - **Displays:** VGA-resolution CRT helmets → 4K pancake optics with eye-tracked foveated rendering at consumer price points.
 - **Content:** hand-modelled avatars → motion-captured → data-driven neural animation → text-conditioned generative scene synthesis.
 
-None of these curves were cyclical. None of them paused. They compounded in monotone, regardless of which year the headlines called a winter.
+> **None of these curves were cyclical. None of them paused. They compounded in monotone, regardless of which year the headlines called a winter.**
 
 ---
 
 ## The "metaverse winter" of 2022–2024 is misnamed
 
-It was a *narrative* winter, not a technical one. Reality Labs lost more than $46 billion by 2023, the press turned, and capital migrated to large language models. All of that is true. None of it stopped Quest 3 from shipping, Vision Pro from existing, 3DGS papers from compounding at SIGGRAPH and ICCV, MAGES SDK from being adopted across the medical-training market, the JMIR 2025 perioperative-stress RCT from validating VR digital-health intervention in a randomised trial, or Kenanidis et al. (2023) from demonstrating statistically significant skill transfer for hip-arthroplasty training.
+It was a *narrative* winter, not a technical one. Reality Labs lost more than $46 billion by 2023, the press turned, and capital migrated to large language models. All of that is true. None of it stopped Quest 3 from shipping, Vision Pro from existing, 3DGS papers from compounding at SIGGRAPH and ICCV, MAGES SDK / Creator from being adopted across the medical-training market, the JMIR 2025 perioperative-stress RCT from validating VR digital-health intervention in a randomised trial, or Kenanidis et al. (2023) from demonstrating statistically significant skill transfer for hip-arthroplasty training.
 
-The continued capability of clinical VR specifically — the thing the headlines decided was dead — has been documented across nearly four decades by **Walter Greenleaf** at the Stanford Virtual Human Interaction Lab and Stanford Medical Mixed Reality Center [(Weiss et al., 2021)](#references). His repeated finding, across pain management, behavioural health, surgical simulation, neurorehabilitation, and post-traumatic stress, is that medical VR has been crossing the clinical-evidence threshold for specific indications on a steady curve since the late 1990s, with no inflection point at any of the supposed winters. He has been saying this in essentially the same words at essentially every relevant clinical conference for thirty years, and the medical literature has been catching up.
+The continued capability of medical VR specifically — the thing the headlines decided was dead — has been documented across nearly four decades by **Walter Greenleaf** at the Stanford Virtual Human Interaction Lab and Stanford Medical Mixed Reality Center [(Weiss et al., 2021)](#references). His repeated finding, across pain management, behavioural health, surgical simulation, neurorehabilitation, and post-traumatic stress, is that medical VR has been crossing the clinical-evidence threshold for specific indications on a steady curve since the late 1990s, with no inflection point at any of the supposed winters. He has been saying this in essentially these words at essentially every major clinical conference for thirty years, and the medical literature has been catching up.
 
-The chart shows a contraction in *coverage*. It does not show a contraction in *capability*. We have just lived through three years of headline disinterest during what is arguably the strongest period of underlying advancement since 2012.
+> The chart shows a contraction in *coverage*. It does not show a contraction in *capability*. We have just lived through three years of headline disinterest during what is arguably the strongest period of underlying advancement since 2012.
 
 ---
 
-## Why I think we are about to explode
+## Why I think we are about to take off
 
 Here is the contrarian read of the 2022–2024 anti-correlation: **ChatGPT did not eclipse VR. ChatGPT finished VR's missing piece.**
 
@@ -68,19 +68,20 @@ Until late 2022, the metaverse pitch had a structural flaw nobody wanted to say 
 
 This is no longer an idiosyncratic view. It is the explicit thesis of **Fei-Fei Li** — whose 2009 ImageNet paper [(Deng et al., 2009)](#references) is one of the foundational events on the AI timeline, whose 2024 venture *World Labs* has now raised over a billion dollars from investors including Nvidia, AMD, and Autodesk [(Silicon Republic, 2026)](#references), and whose stated position is unambiguous: *"AGI will not be complete without spatial intelligence … spatial intelligence is as critical as — and complementary to — language intelligence"* (Li, IEEE Spectrum and Bloomberg interviews, 2024–2025). World Labs' co-founders include Ben Mildenhall, the co-creator of NeRF — the same neural-radiance-field substrate that appears on the graphics curve above. The people who built the substrate are now building the convergence.
 
-Read that again. When the person who lit the ignition fuse on the modern AI summer says the next frontier of AI runs through 3D scene understanding — and is funded at unicorn scale by the picks-and-shovels suppliers of the AI boom to prove it — the AI/VR convergence is no longer a contrarian read. It is the central thesis of the field, stated by its most credible figure, and capitalised at a level the metaverse pitch never reached.
+> Read that again. When the person who lit the ignition fuse on the modern AI summer says the next frontier of AI runs through 3D scene understanding — and is funded at unicorn scale by the picks-and-shovels suppliers of the AI boom to prove it — the AI/VR convergence is no longer a contrarian read. It is the central thesis of the field, stated by its most credible figure, and capitalised at a level the metaverse pitch never reached.
 
 Pair that with the hardware curve finally reaching consumer-acceptable comfort, weight, and price. Pair that with clinical validation in medical XR moving from research demo toward standard of care. Pair that with more than two decades of compounded substrate from the people who never left the field.
 
-The chart says winter. What I see, from inside the substrate, is the last quiet moment before take-off.
+**The chart says winter. What I see, from inside the substrate, is the last quiet moment before take-off. This is hibernation before a spring that will be unrecognizable from
+the consumer-VR moment that just ended.**
 
 ---
 
-## A closing note, to my colleagues who have been in this field as long as I have
+## A closing note, to my colleagues who have been in this field as long as I have (and some even longer)
 
-We have seen this pattern before. In 2002, when LIFEPLUS first walked Roman characters through Pompeii on a mobile HMD, nobody outside our community was paying attention. Twenty-three years later, the same kind of characters live in every consumer headset on the market — and the simulation framework we wrote then is recognisably the ancestor of what we build at ORamaVR now.
+We have seen this pattern before. In 2002, when LIFEPLUS first walked Roman characters through Pompeii on a mobile, home-made video-see-through AR HMD, or in the JUST first medical VR simulaation training with interactive virtual humans via no-code authoring, nobody outside our community was paying attention. Twenty-four years later, the same kind of characters live in every consumer headset on the market — and the simulation framework we wrote then is recognisably the ancestor of what we build at ORamaVR now.
 
-We are not a lonely cohort. Nadia Magnenat Thalmann at MIRALab. Walter Greenleaf at Stanford VHIL and the Medical Mixed Reality Center. The ENGAGE workshop community I co-founded with colleagues in 2016 and which now meets annually as part of Computer Graphics International. The MICCAI medical-imaging community. The IEEE VR and ISMAR contributors who have been publishing through every "winter." Every one of these communities has been compounding through the supposed winter, and we recognise each other across the ranks.
+We are not a lonely cohort. ACM SIGGRAPH, IEEE VR communities, CGI, MICCAI, ISMAR and so many other contributors who have been publishing through every "winter". Nadia Magnenat Thalmann at MIRALab. Walter Greenleaf at Stanford VHIL and the Medical Mixed Reality Center. The ENGAGE workshop community I co-founded with colleagues in 2016 and which now meets annually as part of Computer Graphics International (CGI) every since.  Every one of these communities has been compounding through the supposed winter, and we recognise each other across the ranks.
 
 The mistake we should not make twice is reading headline silence as a signal of underlying stagnation. The substrate is compounding. The unlock has just arrived. And those of us who have stayed with the work since the previous winter are sitting on more than two decades of accumulated technical advantage at exactly the moment the market is about to need it.
 
@@ -90,7 +91,7 @@ The mistake we should not make twice is reading headline silence as a signal of 
 
 The full eighty-three-year cycle timeline (1943–2026) with hover-context for sixty-four marker events, the data table of all forty-two charted events, and additional formats:
 
-→ **[Timeline article (interactive HTML + reference tables) ↗](./ai-vr-cycles.md)**
+→ **[Timeline article (interactive HTML + reference tables) ↗](https://papagiannakis.github.io/files/blog/post1/ai-vr-cycles.html)**
 
 ---
 
@@ -118,6 +119,8 @@ The full eighty-three-year cycle timeline (1943–2026) with hover-context for s
 
 **Papagiannakis, G., Schertenleib, S., O'Kennedy, B., Arevalo-Poizat, M., Magnenat-Thalmann, N., Stoddart, A., & Thalmann, D.** (2005). Mixing virtual and real scenes in the site of ancient Pompeii. *Computer Animation and Virtual Worlds*, 16(1), 11–24. <https://doi.org/10.1002/cav.53>
 
+**Ponder, M., Herbelin, B., Molet, T., Schertenlieb, S., Ulicny, B., Papagiannakis, G., Magnenat-Thalmann, N., & Thalmann, D.** (2003). Immersive VR decision training: Telling interactive stories featuring advanced virtual human simulation technologies. *Proceedings of the 9th Eurographics Workshop on Virtual Environments*, 97–106. The Eurographics Association, ACM Press, Zurich, May 2003.
+
 **Rosenblatt, F.** (1958). The perceptron: A probabilistic model for information storage and organization in the brain. *Psychological Review*, 65(6), 386–408. <https://doi.org/10.1037/h0042519>
 
 **Silicon Republic** (18 February 2026). Fei-Fei Li's World Labs raises $1 bn to advance spatial intelligence — backed by Nvidia, AMD, Autodesk, Fidelity, Emerson Collective, Sea. <https://www.siliconrepublic.com/start-ups/fei-fei-li-world-labs-raises-1bn-to-spatial-intelligence-ai-world-models-marble>
@@ -134,7 +137,7 @@ The full eighty-three-year cycle timeline (1943–2026) with hover-context for s
 
 ---
 
-*Citation notes: the primary references above (McCulloch & Pitts 1943, Turing 1950, Rosenblatt 1958, Minsky & Papert 1969, Sutherland 1968, Stephenson 1992, Hinton, Osindero & Teh 2006, Deng et al. 2009, Krizhevsky et al. 2012, Vaswani et al. 2017, Mildenhall et al. 2020, Kerbl et al. 2023, Weiss et al. 2021, and Papagiannakis et al. 2005) are verified primary sources. Kenanidis et al. (2023) is referenced from the author's own materials and should be verified for exact title and journal before re-publication. The Fei-Fei Li / World Labs material is sourced from contemporary press coverage (IEEE Spectrum, Reuters, Bloomberg, Silicon Republic) and from the World Labs corporate site; quoted formulations reflect Li's public statements at TED, NeurIPS, and in press interviews 2024–2026.*
+*Citation notes: the primary references above (McCulloch & Pitts 1943, Turing 1950, Rosenblatt 1958, Minsky & Papert 1969, Sutherland 1968, Stephenson 1992, Hinton, Osindero & Teh 2006, Deng et al. 2009, Krizhevsky et al. 2012, Vaswani et al. 2017, Mildenhall et al. 2020, Kerbl et al. 2023, Weiss et al. 2021, Papagiannakis et al. 2005, and Ponder et al. 2003) are verified primary sources. Kenanidis et al. (2023) is referenced from the author's own materials and should be verified for exact title and journal before re-publication. The Fei-Fei Li / World Labs material is sourced from contemporary press coverage (IEEE Spectrum, Reuters, Bloomberg, Silicon Republic) and from the World Labs corporate site; quoted formulations reflect Li's public statements at TED, NeurIPS, and in press interviews 2024–2026.*
 
 ---
 
