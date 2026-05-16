@@ -78,5 +78,10 @@ var addressPoints = [
     "Harvard University, Boston MA",
     42.3659617,
     -71.12150636791128
+  ],
+  [
+    "Coventry, UK",
+    52.4021449,
+    -1.5019945
   ]
 ];
