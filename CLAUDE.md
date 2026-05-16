@@ -148,7 +148,7 @@ Columns in [markdown_generator/talks.csv](markdown_generator/talks.csv): `title,
 
 - **`title`** — from the source.
 - **`type`** — one of `Talk`, `Tutorial`, `Keynote Talk`, `Invited Talk`, `Panel`. Default to `Talk` if unclear. The `type` controls the slug prefix.
-- **`url_slug`** — `<type-lowercased-no-space>-<N>`. E.g., `keynote-17`, `tutorial-3`, `talk-12`, `invited-5`. `<N>` = (max existing N for that type, found by `grep`ing both `_talks/*.md` filenames AND the `url_slug` column of `talks.csv`) + 1. The CSV is the more reliable source because `_talks/` is sparse.
+- **`url_slug`** — `talk-<N>` for nearly everything. The actual house convention (visible in `talks.csv`) is a **single global counter**, not type-prefixed: Invited Talks, Tutorials, workshops, and some Keynote Talks all use `talk-<N>`. The prefix `keynote-<N>` is an occasional exception applied to some keynotes (e.g., `keynote-17`, `keynote-25`) but is **not consistent** — other keynotes use `talk-<N>` (e.g., `talk-24` is a Keynote Talk). Default to `talk-<N>` unless there's a clear reason to mirror the `keynote-` style. `<N>` is a single global counter across both prefixes: extract trailing integers from every `url_slug` in `markdown_generator/talks.csv` and every filename in `_talks/*.md`, take the max, add 1. The CSV is the more reliable source because `_talks/` is sparse.
 - **`venue`** — conference/event name (e.g., `IEEE Virtual Reality 2023`).
 - **`date`** — `YYYY-MM-DD`. If only year+month known, default day to `01`.
 - **`location`** — `"City, Country"` or `"online"` (matches existing rows).
@@ -187,15 +187,15 @@ Run this from the repo root (it `cd`s into `_talks/` internally, matching the no
 
 ```bash
 cd _talks && python3 <<'PY'
-import glob
+import glob, time
 import getorg
 from geopy import Nominatim
 
-geocoder = Nominatim(user_agent="my-custom-user-agent")
+geocoder = Nominatim(user_agent="my-custom-user-agent", timeout=10)
 location_dict = {}
 location = ""
 
-for file in glob.glob("*.md"):
+for file in sorted(glob.glob("*.md")):
     with open(file, 'r') as f:
         lines = f.read()
         if lines.find('location: "') > 1:
@@ -204,7 +204,8 @@ for file in glob.glob("*.md"):
             loc_end = lines_trim.find('"')
             location = lines_trim[:loc_end]
         location_dict[location] = geocoder.geocode(location)
-        print(location, "->", location_dict[location])
+        print(file, ":", location, "->", location_dict[location])
+        time.sleep(1.1)  # respect Nominatim 1 req/sec policy preemptively
 
 getorg.orgmap.create_map_obj()
 getorg.orgmap.output_html_cluster_map(location_dict, folder_name="../talkmap", hashed_usernames=False)
@@ -213,10 +214,12 @@ PY
 
 Caveats:
 
-- **Dependencies**: `getorg` and `geopy` must be installed. If `ModuleNotFoundError`, run `pip install getorg geopy` first. `getorg` is rarely installed by default.
-- **Nominatim rate limit**: the OpenStreetMap geocoder allows ~1 req/sec and requires a User-Agent (the notebook supplies `"my-custom-user-agent"`). On a site with dozens of talks this can hit the limit — if requests start returning `None`, wait a minute and re-run, or insert `time.sleep(1)` between geocode calls.
-- **Network failures**: Nominatim is third-party. If down, the map can't regenerate. Surface the error to the user and skip the talkmap commit — the new talk page itself is still live; only the map is stale.
-- **Output**: overwrites `talkmap/map.html` and `talkmap/org-locations.js`. The `talkmap/leaflet_dist/` subdirectory is static theme assets, unchanged.
+- **Dependencies**: `getorg` and `geopy` must be installed. If `ModuleNotFoundError`, run `python3 -m pip install --user getorg geopy` (using `pip` alone may install to the wrong interpreter on macOS where `pip` often points at anaconda but `python3` is the system one). `getorg` is rarely installed by default.
+- **Nominatim rate limit — this is the main failure mode**: OSM Nominatim requires ≤ 1 req/sec and bans abusers. The inline `time.sleep(1.1)` above is **mandatory, not optional** — without it, you will be rate-limited and the script will return `None` for many locations, **clobbering the existing good data in `org-locations.js`**.
+  - If you've already triggered a block (results coming back `None` or `GeocoderRateLimited`), brief sleeps will **not** clear it. The ban can persist for tens of minutes to hours. Stop, revert any partial regeneration with `git checkout -- talkmap/`, and try again later — or skip the talkmap commit entirely for this session.
+  - Adding `timeout=10` to the `Nominatim()` constructor matters too: geopy's default `read_timeout=1` is far too short and can spuriously fail.
+- **Network failures**: Nominatim is third-party. If down or blocking, the map can't regenerate. Surface the error to the user and skip the talkmap commit — the new talk page itself is still live; only the map is stale and a manual rerun later will catch up.
+- **Output**: overwrites `talkmap/map.html` and `talkmap/org-locations.js`. The `talkmap/leaflet_dist/` subdirectory is static theme assets, unchanged. **Always diff `org-locations.js` before committing** — if the new file is much shorter than the old one, geocoding failed silently and you'd be committing a regression. Revert with `git checkout -- talkmap/` if so.
 
 After the script runs, check the diff:
 
