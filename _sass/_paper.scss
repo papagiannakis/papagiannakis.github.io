@@ -53,6 +53,24 @@ a:hover, a:focus { color: var(--accent-hover); }
   border-bottom: 1px solid var(--rule);
 }
 
+/* Nav bar — match the masthead paper tone instead of theme white */
+.greedy-nav,
+.greedy-nav .hidden-links {
+  background: var(--paper-deep);
+}
+
+.greedy-nav .hidden-links {
+  border-color: var(--rule);
+}
+
+/* Nav links stay ink-colored; only hover picks up the rust accent */
+.greedy-nav a {
+  color: var(--ink);
+}
+.greedy-nav a:hover {
+  color: var(--accent-hover);
+}
+
 /* Soften secondary text */
 .page__meta,
 .archive__item-excerpt,
