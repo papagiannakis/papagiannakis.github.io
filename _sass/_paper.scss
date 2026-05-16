@@ -1,0 +1,74 @@
+/* ==========================================================================
+   Paper look & feel — derived from _posts/ai-vr-cycles.html
+   Loaded last in main.scss to win specificity over theme defaults.
+   ========================================================================== */
+
+:root {
+  --paper:      #f3eee2;
+  --paper-deep: #ece5d2;
+  --ink:        #141414;
+  --ink-soft:   #3a3833;
+  --ink-mute:   #6b6760;
+  --rule:       #1a1a1a;
+  --accent:     #d97a2c;   /* warm rust — links */
+  --accent-hover: #b8341a; /* deeper rust — hover */
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  background-image:
+    radial-gradient(ellipse at 15% 10%, rgba(193,148,76,0.06), transparent 50%),
+    radial-gradient(ellipse at 90% 80%, rgba(45,74,94,0.05), transparent 55%);
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6,
+.page__title,
+.archive__item-title,
+.archive__subtitle,
+.sidebar__author-name,
+.greedy-nav .site-title {
+  font-family: "Fraunces", Georgia, serif;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+code, pre, kbd, samp,
+.page__meta,
+time,
+.masthead__menu-item,
+.greedy-nav a {
+  font-family: "JetBrains Mono", Consolas, monospace;
+}
+
+a { color: var(--accent); }
+a:hover, a:focus { color: var(--accent-hover); }
+
+/* Strong horizontal rules on the masthead, mirroring ai-vr-cycles.html */
+.masthead {
+  background: var(--paper-deep);
+  border-top: 4px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+/* Soften secondary text */
+.page__meta,
+.archive__item-excerpt,
+.sidebar .author__bio {
+  color: var(--ink-mute);
+}
+
+/* Keep code blocks legible against the cream background */
+pre, code {
+  background: rgba(20, 20, 20, 0.04);
+}
+
+/* Print: white background, ink stays */
+@media print {
+  body {
+    background: #fff !important;
+    background-image: none !important;
+  }
+}
