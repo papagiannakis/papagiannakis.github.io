@@ -179,47 +179,31 @@ Columns in [markdown_generator/talks.csv](markdown_generator/talks.csv): `title,
 
 ### Regenerate the talk map
 
-The home page and `/talks/` link to a Leaflet cluster map at [talkmap/map.html](talkmap/map.html), generated from the `location:` field of every `_talks/*.md`. Each new talk needs this regenerated so its pin appears.
+The home page and `/talks/` link to a Leaflet cluster map at [talkmap/map.html](talkmap/map.html), generated from the `location:` field of every `_talks/*.md`. Each new talk's location needs to be added to [talkmap/org-locations.js](talkmap/org-locations.js) so its pin appears.
 
-**Canonical source is `talkmap.ipynb`, NOT `talkmap.py`.** The `.py` calls `Nominatim()` without a `user_agent`, which fails on `geopy >= 2.0`. The notebook uses `Nominatim(user_agent="my-custom-user-agent")`. Use the notebook's logic.
+**Canonical source is [_talks/talkmap.ipynb](_talks/talkmap.ipynb).** Do NOT use the root-level `talkmap.ipynb` or `talkmap.py` — both are stale upstream copies (the `.py` calls `Nominatim()` with no `user_agent` which breaks on `geopy >= 2.0`; the root `.ipynb` predates the rewrite).
 
-Run this from the repo root (it `cd`s into `_talks/` internally, matching the notebook's working directory):
+The current notebook is **cache-then-incremental**: it parses the existing `org-locations.js`, scans `_talks/*.md` for `location:` fields, and geocodes **only** locations not already cached. It uses Komoot's **Photon** geocoder (free, no key, lenient rate limits) — Nominatim was abandoned because it bans us within seconds when we re-geocode every location on every run (which the original notebook did).
+
+To run it, either open it in Jupyter or execute non-interactively from the repo root:
 
 ```bash
-cd _talks && python3 <<'PY'
-import glob, time
-import getorg
-from geopy import Nominatim
-
-geocoder = Nominatim(user_agent="my-custom-user-agent", timeout=10)
-location_dict = {}
-location = ""
-
-for file in sorted(glob.glob("*.md")):
-    with open(file, 'r') as f:
-        lines = f.read()
-        if lines.find('location: "') > 1:
-            loc_start = lines.find('location: "') + 11
-            lines_trim = lines[loc_start:]
-            loc_end = lines_trim.find('"')
-            location = lines_trim[:loc_end]
-        location_dict[location] = geocoder.geocode(location)
-        print(file, ":", location, "->", location_dict[location])
-        time.sleep(1.1)  # respect Nominatim 1 req/sec policy preemptively
-
-getorg.orgmap.create_map_obj()
-getorg.orgmap.output_html_cluster_map(location_dict, folder_name="../talkmap", hashed_usernames=False)
-PY
+/Users/papagian/opt/anaconda3/bin/jupyter nbconvert --to notebook --execute --inplace _talks/talkmap.ipynb
 ```
+
+The notebook is idempotent — running it with no new talks reports `Missing: []` and rewrites `org-locations.js` with the same content (no diff). After running, check `git diff talkmap/`:
+
+- If the diff is **just a few `+` lines** for the new talk's location → expected, commit as `updated talkmap`.
+- If the diff shows **many `-` lines** → something went wrong, revert with `git checkout -- talkmap/` and investigate.
+- If `git status talkmap/` shows nothing → the new talk's location was already in the cache (e.g., another talk had the same city). Skip the talkmap commit.
 
 Caveats:
 
-- **Dependencies**: `getorg` and `geopy` must be installed. If `ModuleNotFoundError`, run `python3 -m pip install --user getorg geopy` (using `pip` alone may install to the wrong interpreter on macOS where `pip` often points at anaconda but `python3` is the system one). `getorg` is rarely installed by default.
-- **Nominatim rate limit — this is the main failure mode**: OSM Nominatim requires ≤ 1 req/sec and bans abusers. The inline `time.sleep(1.1)` above is **mandatory, not optional** — without it, you will be rate-limited and the script will return `None` for many locations, **clobbering the existing good data in `org-locations.js`**.
-  - If you've already triggered a block (results coming back `None` or `GeocoderRateLimited`), brief sleeps will **not** clear it. The ban can persist for tens of minutes to hours. Stop, revert any partial regeneration with `git checkout -- talkmap/`, and try again later — or skip the talkmap commit entirely for this session.
-  - Adding `timeout=10` to the `Nominatim()` constructor matters too: geopy's default `read_timeout=1` is far too short and can spuriously fail.
-- **Network failures**: Nominatim is third-party. If down or blocking, the map can't regenerate. Surface the error to the user and skip the talkmap commit — the new talk page itself is still live; only the map is stale and a manual rerun later will catch up.
-- **Output**: overwrites `talkmap/map.html` and `talkmap/org-locations.js`. The `talkmap/leaflet_dist/` subdirectory is static theme assets, unchanged. **Always diff `org-locations.js` before committing** — if the new file is much shorter than the old one, geocoding failed silently and you'd be committing a regression. Revert with `git checkout -- talkmap/` if so.
+- **Dependencies**: `getorg`, `geopy` (Photon is in geopy), and `jupyter`. Anaconda has all of these by default. If you get `ModuleNotFoundError` from a different Python, run `python3 -m pip install --user getorg geopy jupyter`.
+- **Wrong-interpreter trap on macOS**: `pip` and `python3` often point at different installs (anaconda vs system). Use the full path `/Users/papagian/opt/anaconda3/bin/jupyter` and `/Users/papagian/opt/anaconda3/bin/python` to be safe, or use `python3 -m pip ...` for installs.
+- **Photon quirks**: the geocoded `address` field may name a nearby business rather than the city center (e.g., "Coventry, UK" resolved to "FEV UK Ltd, Cheetah Road, Coventry"). The lat/lon coordinates are still correct for the city, which is all the cluster map needs. Don't worry about the verbose address string.
+- **If Photon also fails** (rare — happens during outages): manually geocode via the Photon web UI at https://photon.komoot.io, copy the lat/lon, and append a new entry to `org-locations.js` by hand.
+- **`map.html` is static** and never regenerated by the new notebook. Only `org-locations.js` changes per talk.
 
 After the script runs, check the diff:
 
@@ -235,7 +219,8 @@ If nothing changed (e.g., the new talk's location was already represented), skip
 
 - Don't write files before the user confirms the derived metadata. Talk extraction is fuzzy — confirm first.
 - Don't run `talks.py` or any bulk regeneration script.
-- Don't run `talkmap.py` either — it's stale (broken Nominatim call). Use the inline Python snippet above which mirrors the notebook.
+- Don't run `talkmap.py` or the root `talkmap.ipynb` — both are stale. Use `_talks/talkmap.ipynb`.
+- Don't switch back to Nominatim "to match the original data". The cache preserves Nominatim's original results; only new locations use Photon. Mixing is fine — both report WGS84 lat/lon to enough precision for a cluster pin.
 - Don't modify `talks.tsv`. It is not the source of truth.
 - Don't push without confirmation, even if the user OK'd the commit.
 - Don't invent a `talk_url` — if the user gave neither a slides filename nor a video/event URL, leave the column blank and skip the "More information here" line in the markdown body.
