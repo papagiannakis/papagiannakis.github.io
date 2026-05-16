@@ -120,3 +120,120 @@ Map BibTeX fields to the CSV schema (`pub_date,title,venue,excerpt,citation,url_
 - Don't run any bulk regeneration script. Single-row append, single-file write.
 - Don't push without confirmation, even if the user OK'd the commit.
 - Don't modify `publications.tsv`. It is not the source of truth and is not used by the live site.
+
+## Workflow: ingest talk
+
+When the user says **"ingest talk"** (or equivalent: "add this talk", "publish this talk"), run this flow. Talks are looser than publications — there is no DOI/CrossRef equivalent, so metadata extraction is best-effort and **must be confirmed by the user before files are written**, not after.
+
+### Inputs — accept any of these three shapes
+
+Try them in order; whichever the user provides is what you use.
+
+1. **URL + filename** (canonical, most analogous to the publication flow):
+   - **URL** to the talk's announcement / event page (conference program, IEEE/ACM session listing, keynote speakers page, etc.).
+   - **Filename inside `files/`** for the slides PDF (e.g., `GP-IEEEVRkeynote2023.pdf`). If the talk is video-only, the user can give a video URL instead — set `talk_url` to that URL directly and skip the `files/` check.
+2. **Pasted text blob + filename** — if there's no clean URL, the user pastes the CFP/program text/announcement and provides the slides filename.
+3. **Explicit fields + filename** — if the user just lists `title:`, `venue:`, `date:`, `location:`, `type:`, optional `description:`, take them verbatim.
+
+### Resolve metadata
+
+- For Option 1: `WebFetch` the URL and extract `title`, `venue`, `date`, `location`, `description` (abstract), `type`.
+- For Option 2: parse the blob for the same fields.
+- For Option 3: trust the fields as given.
+- For all: if `talk_url` is a slides PDF, verify with `ls files/<name>` and warn (don't block) if missing.
+
+### Map to the talks schema
+
+Columns in [markdown_generator/talks.csv](markdown_generator/talks.csv): `title, type, url_slug, venue, date, location, talk_url, description`.
+
+- **`title`** — from the source.
+- **`type`** — one of `Talk`, `Tutorial`, `Keynote Talk`, `Invited Talk`, `Panel`. Default to `Talk` if unclear. The `type` controls the slug prefix.
+- **`url_slug`** — `<type-lowercased-no-space>-<N>`. E.g., `keynote-17`, `tutorial-3`, `talk-12`, `invited-5`. `<N>` = (max existing N for that type, found by `grep`ing both `_talks/*.md` filenames AND the `url_slug` column of `talks.csv`) + 1. The CSV is the more reliable source because `_talks/` is sparse.
+- **`venue`** — conference/event name (e.g., `IEEE Virtual Reality 2023`).
+- **`date`** — `YYYY-MM-DD`. If only year+month known, default day to `01`.
+- **`location`** — `"City, Country"` or `"online"` (matches existing rows).
+- **`talk_url`** — `https://papagiannakis.github.io/files/<filename>` for slides, or the raw video/event URL.
+- **`description`** — abstract/summary. May be empty.
+
+### Steps to execute
+
+1. **Resolve and show derived values FIRST** — before writing anything, print the extracted/derived values and ask the user to confirm or correct. This is the key difference from publications: CrossRef gives clean data, but talk extraction is fuzzy. Echo back something like:
+   ```
+   title:       …
+   type:        Keynote Talk
+   url_slug:    keynote-18
+   venue:       …
+   date:        2026-05-03
+   location:    …
+   talk_url:    …
+   description: <first 200 chars>…
+   ```
+   Wait for an OK or corrections.
+2. **Append one row** to `markdown_generator/talks.csv` with proper RFC-4180 CSV quoting (commas/quotes/newlines wrapped in `"…"`, embedded `"` doubled to `""`). Do **not** touch `talks.tsv` (stale demo data).
+3. **Write the markdown file** to `_talks/<date>-<url_slug>.md`. Match the frontmatter shape that [markdown_generator/talks.py](markdown_generator/talks.py) produces — fields in this order: `title` (double-quoted), `collection: talks`, `type` (double-quoted), `permalink: /talks/<date>-<url_slug>`, `venue` (double-quoted) if present, `date`, `location` (double-quoted) if present. Body: optional `[More information here](<talk_url>)` line, then the description. Note `talks.py` does **not** HTML-escape the way `publications.py` does, so keep raw `"` / `'` in the description — but be careful that the title and venue, which the script wraps in double quotes, do not themselves contain unescaped `"`. If they do, replace with `&quot;` or use a different quoting style.
+4. **Do NOT run `talks.py`** — same reasoning as publications: it reads `.tsv` not `.csv`, and would clobber any hand-edited talk pages.
+5. **Show the diff** (`git diff` for the CSV, `git status` for the new `.md` and any slides PDF) and pause for the user's OK to commit.
+6. On confirmation, **commit** with a message matching the publication style — short, lowercase, e.g. `added <venue-shortname> <type> on <short-topic>` (e.g., `added IEEE VR 2023 keynote on geometric algebra`).
+7. **Regenerate the talk map** (see next subsection). This produces a separate commit when the map output changes.
+8. Pause and **ask before `git push origin main`** — push both commits together. Never push without explicit OK. GitHub Pages rebuilds in ~30s.
+
+### Regenerate the talk map
+
+The home page and `/talks/` link to a Leaflet cluster map at [talkmap/map.html](talkmap/map.html), generated from the `location:` field of every `_talks/*.md`. Each new talk needs this regenerated so its pin appears.
+
+**Canonical source is `talkmap.ipynb`, NOT `talkmap.py`.** The `.py` calls `Nominatim()` without a `user_agent`, which fails on `geopy >= 2.0`. The notebook uses `Nominatim(user_agent="my-custom-user-agent")`. Use the notebook's logic.
+
+Run this from the repo root (it `cd`s into `_talks/` internally, matching the notebook's working directory):
+
+```bash
+cd _talks && python3 <<'PY'
+import glob
+import getorg
+from geopy import Nominatim
+
+geocoder = Nominatim(user_agent="my-custom-user-agent")
+location_dict = {}
+location = ""
+
+for file in glob.glob("*.md"):
+    with open(file, 'r') as f:
+        lines = f.read()
+        if lines.find('location: "') > 1:
+            loc_start = lines.find('location: "') + 11
+            lines_trim = lines[loc_start:]
+            loc_end = lines_trim.find('"')
+            location = lines_trim[:loc_end]
+        location_dict[location] = geocoder.geocode(location)
+        print(location, "->", location_dict[location])
+
+getorg.orgmap.create_map_obj()
+getorg.orgmap.output_html_cluster_map(location_dict, folder_name="../talkmap", hashed_usernames=False)
+PY
+```
+
+Caveats:
+
+- **Dependencies**: `getorg` and `geopy` must be installed. If `ModuleNotFoundError`, run `pip install getorg geopy` first. `getorg` is rarely installed by default.
+- **Nominatim rate limit**: the OpenStreetMap geocoder allows ~1 req/sec and requires a User-Agent (the notebook supplies `"my-custom-user-agent"`). On a site with dozens of talks this can hit the limit — if requests start returning `None`, wait a minute and re-run, or insert `time.sleep(1)` between geocode calls.
+- **Network failures**: Nominatim is third-party. If down, the map can't regenerate. Surface the error to the user and skip the talkmap commit — the new talk page itself is still live; only the map is stale.
+- **Output**: overwrites `talkmap/map.html` and `talkmap/org-locations.js`. The `talkmap/leaflet_dist/` subdirectory is static theme assets, unchanged.
+
+After the script runs, check the diff:
+
+```bash
+git status talkmap/ && git diff --stat talkmap/
+```
+
+If `map.html` or `org-locations.js` changed, **commit as a separate commit** matching the existing house style — `git log --oneline talkmap*` shows the pattern: `updated talkmap`, `updated talk map`, `fix talkmap`. Use `updated talkmap`.
+
+If nothing changed (e.g., the new talk's location was already represented), skip the talkmap commit silently.
+
+### Don't do
+
+- Don't write files before the user confirms the derived metadata. Talk extraction is fuzzy — confirm first.
+- Don't run `talks.py` or any bulk regeneration script.
+- Don't run `talkmap.py` either — it's stale (broken Nominatim call). Use the inline Python snippet above which mirrors the notebook.
+- Don't modify `talks.tsv`. It is not the source of truth.
+- Don't push without confirmation, even if the user OK'd the commit.
+- Don't invent a `talk_url` — if the user gave neither a slides filename nor a video/event URL, leave the column blank and skip the "More information here" line in the markdown body.
+- Don't skip talkmap regeneration silently when the script fails — surface the error so the user knows the map is stale.
