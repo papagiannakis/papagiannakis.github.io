@@ -83,6 +83,26 @@ pre, code {
   background: rgba(20, 20, 20, 0.04);
 }
 
+/* Footer — mirror the masthead's paper-deep tone and ink rule */
+.page__footer {
+  background-color: var(--paper-deep);
+  color: var(--ink-mute);
+  border-top: 1px solid var(--rule);
+
+  .fas, .fab, .far, .fal {
+    color: var(--ink-mute);
+  }
+
+  a:hover {
+    color: var(--accent-hover);
+  }
+}
+
+.page__footer-copyright,
+.page__footer-follow li {
+  font-family: "JetBrains Mono", Consolas, monospace;
+}
+
 /* Print: white background, ink stays */
 @media print {
   body {
