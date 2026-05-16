@@ -1,0 +1,1260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AI / VR — A Half-Century of Cycles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700;9..144,900&family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:        #f3eee2;
+    --paper-deep:   #ece5d2;
+    --ink:          #141414;
+    --ink-soft:     #3a3833;
+    --ink-mute:     #6b6760;
+    --rule:         #1a1a1a;
+    --summer:       #d97a2c;     /* warm rust */
+    --summer-band:  rgba(217,122,44,0.18);
+    --summer-band2: rgba(217,122,44,0.10);
+    --winter:       #2d4a5e;     /* cool slate */
+    --winter-band:  rgba(45,74,94,0.18);
+    --winter-band2: rgba(45,74,94,0.10);
+    --neutral-band: rgba(20,20,20,0.04);
+    --ai:           #b8341a;     /* deeper rust */
+    --vr:           #0d6e7d;     /* deep teal */
+    --highlight:    #c79a3b;     /* gold */
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.55;
+    background-image:
+      radial-gradient(ellipse at 15% 10%, rgba(193,148,76,0.08), transparent 50%),
+      radial-gradient(ellipse at 90% 80%, rgba(45,74,94,0.07), transparent 55%);
+    min-height: 100vh;
+  }
+
+  .grain::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    z-index: 1;
+  }
+
+  .wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 56px 32px 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ------- masthead ------- */
+  header.mast {
+    border-top: 4px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 0 22px;
+    margin-bottom: 36px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: end;
+    gap: 24px;
+  }
+  .mast .meta {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .mast h1 {
+    font-family: "Fraunces", serif;
+    font-weight: 900;
+    font-size: clamp(34px, 5.2vw, 64px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-align: center;
+    font-variation-settings: "opsz" 144;
+  }
+  .mast h1 em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--ink-soft);
+  }
+  .dek {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink-soft);
+    text-align: center;
+    margin: 14px 0 0;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .legend {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 22px 0 8px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .legend .sw {
+    display: inline-block;
+    width: 18px; height: 10px;
+    margin-right: 6px;
+    vertical-align: middle;
+    border: 1px solid rgba(0,0,0,0.15);
+  }
+
+  /* ------- chapter ------- */
+  .chapter {
+    margin: 48px 0 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .chapter .num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .chapter h2 {
+    font-family: "Fraunces", serif;
+    font-weight: 700;
+    font-size: clamp(26px, 3.6vw, 40px);
+    line-height: 1.05;
+    margin: 4px 0 0;
+    grid-column: 1 / -1;
+    letter-spacing: -0.01em;
+  }
+  .chapter .sub {
+    grid-column: 1 / -1;
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 17px;
+    margin-top: 4px;
+  }
+
+  /* ------- timeline svg containers ------- */
+  .scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid rgba(20,20,20,0.18);
+    border-radius: 2px;
+    background: var(--paper-deep);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 8px 28px -18px rgba(0,0,0,0.25);
+    margin-top: 18px;
+  }
+  .scroll svg {
+    display: block;
+    min-width: 1300px;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ------- prose ------- */
+  .prose {
+    font-family: "Fraunces", serif;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    columns: 2;
+    column-gap: 36px;
+    column-rule: 1px solid rgba(20,20,20,0.12);
+    margin: 28px 0 8px;
+  }
+  .prose p { margin: 0 0 1em; break-inside: avoid; }
+  .prose strong { color: var(--ink); font-weight: 600; }
+  @media (max-width: 760px) { .prose { columns: 1; } }
+
+  /* ------- analytic block ------- */
+  .takeaways {
+    margin: 36px 0 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 24px 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  @media (max-width: 760px) { .takeaways { grid-template-columns: 1fr; } }
+  .take h4 {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin: 0 0 8px;
+  }
+  .take p {
+    font-family: "Fraunces", serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  footer.colophon {
+    margin-top: 48px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-mute);
+    display: flex; flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  /* SVG text styles via classes */
+  .yr-axis { font-family: "JetBrains Mono", monospace; font-size: 11px; fill: var(--ink-mute); }
+  .yr-axis-major { font-family: "JetBrains Mono", monospace; font-size: 12px; fill: var(--ink); font-weight: 600; }
+  .yr-axis-period { font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; }
+  .band-label { font-family: "Fraunces", serif; font-style: italic; font-weight: 500; }
+  .ev-year { font-family: "JetBrains Mono", monospace; font-size: 10.5px; font-weight: 600; fill: var(--ink); }
+  .ev-text { font-family: "IBM Plex Sans", sans-serif; font-size: 11px; fill: var(--ink); }
+  .ev-text-soft { font-family: "IBM Plex Sans", sans-serif; font-size: 11px; fill: var(--ink-soft); }
+  .lane-label { font-family: "Fraunces", serif; font-weight: 700; font-size: 14px; }
+  .annot { font-family: "Fraunces", serif; font-style: italic; font-size: 13px; fill: var(--ink-soft); }
+
+  /* Hover-driven event interactivity */
+  .event { cursor: help; }
+  .event .hit { fill: transparent; pointer-events: all; }
+  .event:hover circle:not(.hit) { stroke: var(--ink); stroke-width: 1.5; }
+  .event:hover text { fill: var(--ink); font-weight: 700; }
+
+  /* Floating tooltip */
+  #cb-tooltip {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    max-width: 340px;
+    min-width: 220px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.06);
+    padding: 14px 16px 12px;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    opacity: 0;
+    transform: translate(0, -50%) translateY(4px);
+    transition: opacity 0.13s ease, transform 0.13s ease;
+  }
+  #cb-tooltip.show { opacity: 1; transform: translate(0, -50%) translateY(0); }
+  #cb-tooltip .tt-year {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 4px;
+  }
+  #cb-tooltip h4 {
+    margin: 0 0 8px 0;
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.25;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  #cb-tooltip .tt-body { color: var(--ink-soft); }
+  #cb-tooltip .tt-conf {
+    margin-top: 9px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(20,20,20,0.10);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+  }
+  #cb-tooltip.tone-ai    { border-top: 3px solid var(--ai); }
+  #cb-tooltip.tone-vr    { border-top: 3px solid var(--vr); }
+  #cb-tooltip.tone-gold  { border-top: 3px solid var(--highlight); }
+  #cb-tooltip.tone-winter { border-top: 3px solid var(--winter); }
+</style>
+</head>
+<body class="grain">
+<div class="wrap">
+
+  <header class="mast">
+    <div class="meta">№ 1<br/>Vol. I · rev. II</div>
+    <div>
+      <h1>AI <em>&</em> VR<br/>Eight Decades<br/><em>of Cycles</em></h1>
+    </div>
+    <div class="meta" style="text-align:right">1943—2026<br/>Eighty-three years</div>
+  </header>
+
+  <p class="dek">
+    Summers and winters in artificial intelligence and virtual reality, traced through the events
+    that bent each curve — beginning with McCulloch &amp; Pitts in 1943 — the breakthroughs,
+    the bankruptcies, the books, and the buyouts.
+  </p>
+
+  <p class="byline" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-mute);margin:18px 0 28px;text-align:center;">
+    By <span style="color:var(--ai);font-weight:600;">Dr. George Papagiannakis</span>
+    &nbsp;·&nbsp; ORamaVR &nbsp;·&nbsp; FORTH-ICS &nbsp;·&nbsp; University of Crete
+  </p>
+
+  <div class="legend">
+    <span><span class="sw" style="background:var(--summer-band);border-color:var(--summer)"></span>Summer / hype expansion</span>
+    <span><span class="sw" style="background:var(--winter-band);border-color:var(--winter)"></span>Winter / contraction</span>
+    <span><span class="sw" style="background:var(--neutral-band)"></span>Quiet / latent</span>
+    <span><span class="sw" style="background:var(--ai)"></span>AI events</span>
+    <span><span class="sw" style="background:var(--vr)"></span>VR / metaverse events</span>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CHAPTER I — AI                                               -->
+  <!-- ============================================================ -->
+  <section class="chapter">
+    <div class="num">Chapter I · Artificial Intelligence</div>
+    <h2>One foundation period, three summers, two winters, and a long quiet rebrand.</h2>
+    <div class="sub">From McCulloch &amp; Pitts (1943) to ChatGPT (2022): the funding cycles, breakthroughs, and books that ended eras.</div>
+  </section>
+
+  <div class="scroll">
+    <svg viewBox="0 0 1900 460" xmlns="http://www.w3.org/2000/svg" aria-label="AI timeline 1943–2026">
+      <!--
+        x-axis: 1943 -> 2026 = 83 years.  margin-left = 60, margin-right = 30.
+        plot width = 1810, year width = 21.8 px.
+        x(year) = 60 + (year - 1943) * 21.8
+      -->
+      <defs>
+        <linearGradient id="summer-grad" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%"  stop-color="var(--summer)" stop-opacity="0.20"/>
+          <stop offset="100%" stop-color="var(--summer)" stop-opacity="0.06"/>
+        </linearGradient>
+        <linearGradient id="winter-grad" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%"  stop-color="var(--winter)" stop-opacity="0.05"/>
+          <stop offset="100%" stop-color="var(--winter)" stop-opacity="0.22"/>
+        </linearGradient>
+        <pattern id="founder-hatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+          <rect width="6" height="6" fill="rgba(199,154,59,0.10)"/>
+          <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(199,154,59,0.35)" stroke-width="0.6"/>
+        </pattern>
+      </defs>
+
+      <!-- season bands  (y: 30 -> 380, height 350) -->
+      <!-- Foundations: 1943-1956 -->
+      <rect x="60" y="30" width="283.4" height="350" fill="url(#founder-hatch)"/>
+      <!-- Summer 1: 1956-1974 -->
+      <rect x="343.4" y="30" width="392.4" height="350" fill="url(#summer-grad)"/>
+      <!-- Winter 1: 1974-1980 -->
+      <rect x="735.8" y="30" width="130.8" height="350" fill="url(#winter-grad)"/>
+      <!-- Summer 2: 1980-1987 -->
+      <rect x="866.6" y="30" width="152.6" height="350" fill="url(#summer-grad)"/>
+      <!-- Winter 2: 1987-1993 -->
+      <rect x="1019.2" y="30" width="130.8" height="350" fill="url(#winter-grad)"/>
+      <!-- Quiet/latent: 1993-2012 -->
+      <rect x="1150" y="30" width="414.2" height="350" fill="rgba(20,20,20,0.035)"/>
+      <!-- Summer 3: 2012-2026 -->
+      <rect x="1564.2" y="30" width="305.2" height="350" fill="url(#summer-grad)"/>
+
+      <!-- band labels -->
+      <text x="201.7" y="55" class="band-label" fill="var(--highlight)" text-anchor="middle" font-size="13">Foundations — proto-AI</text>
+      <text x="539.6" y="55" class="band-label" fill="var(--summer)" text-anchor="middle" font-size="14">Summer I — “Symbolic optimism”</text>
+      <text x="801.2" y="55" class="band-label" fill="var(--winter)" text-anchor="middle" font-size="13">Winter I</text>
+      <text x="942.9" y="55" class="band-label" fill="var(--summer)" text-anchor="middle" font-size="13">Summer II — Expert systems</text>
+      <text x="1084.6" y="55" class="band-label" fill="var(--winter)" text-anchor="middle" font-size="13">Winter II</text>
+      <text x="1357.1" y="55" class="band-label" fill="var(--ink-mute)" text-anchor="middle" font-size="13">Quiet rebrand — “machine learning”</text>
+      <text x="1716.8" y="55" class="band-label" fill="var(--summer)" text-anchor="middle" font-size="14">Summer III — Deep learning &amp; LLMs</text>
+
+      <!-- center line -->
+      <line x1="60" y1="220" x2="1870" y2="220" stroke="var(--rule)" stroke-width="1.5"/>
+
+      <!-- decade gridlines (faint reference) + period boundary year axis -->
+      <g>
+        <!-- faint decade reference lines -->
+        <line x1="212.6"  y1="215" x2="212.6"  y2="395" stroke="var(--ink-mute)" stroke-dasharray="1 5" stroke-width="0.4" opacity="0.5"/>
+        <line x1="430.6"  y1="215" x2="430.6"  y2="395" stroke="var(--ink-mute)" stroke-dasharray="1 5" stroke-width="0.4" opacity="0.5"/>
+        <line x1="648.6"  y1="215" x2="648.6"  y2="395" stroke="var(--ink-mute)" stroke-dasharray="1 5" stroke-width="0.4" opacity="0.5"/>
+        <line x1="1084.6" y1="215" x2="1084.6" y2="395" stroke="var(--ink-mute)" stroke-dasharray="1 5" stroke-width="0.4" opacity="0.5"/>
+        <line x1="1302.6" y1="215" x2="1302.6" y2="395" stroke="var(--ink-mute)" stroke-dasharray="1 5" stroke-width="0.4" opacity="0.5"/>
+        <line x1="1520.6" y1="215" x2="1520.6" y2="395" stroke="var(--ink-mute)" stroke-dasharray="1 5" stroke-width="0.4" opacity="0.5"/>
+        <line x1="1738.6" y1="215" x2="1738.6" y2="395" stroke="var(--ink-mute)" stroke-dasharray="1 5" stroke-width="0.4" opacity="0.5"/>
+
+        <!-- period boundary years (each tick at the era it begins, in that era's color) -->
+        <!-- 1943 — Foundations begin -->
+        <line x1="60"     y1="395" x2="60"     y2="404" stroke="var(--highlight)" stroke-width="2"/>
+        <text x="60"     y="418" class="yr-axis-period" fill="var(--highlight)" text-anchor="start">1943</text>
+        <!-- 1956 — Summer I begins -->
+        <line x1="343.4"  y1="395" x2="343.4"  y2="404" stroke="var(--summer)" stroke-width="2"/>
+        <text x="343.4"  y="418" class="yr-axis-period" fill="var(--summer)" text-anchor="middle">1956</text>
+        <!-- 1974 — Winter I begins -->
+        <line x1="735.8"  y1="395" x2="735.8"  y2="404" stroke="var(--winter)" stroke-width="2"/>
+        <text x="735.8"  y="418" class="yr-axis-period" fill="var(--winter)" text-anchor="middle">1974</text>
+        <!-- 1980 — Summer II begins -->
+        <line x1="866.6"  y1="395" x2="866.6"  y2="404" stroke="var(--summer)" stroke-width="2"/>
+        <text x="866.6"  y="418" class="yr-axis-period" fill="var(--summer)" text-anchor="middle">1980</text>
+        <!-- 1987 — Winter II begins -->
+        <line x1="1019.2" y1="395" x2="1019.2" y2="404" stroke="var(--winter)" stroke-width="2"/>
+        <text x="1019.2" y="418" class="yr-axis-period" fill="var(--winter)" text-anchor="middle">1987</text>
+        <!-- 1993 — Quiet rebrand begins -->
+        <line x1="1150"   y1="395" x2="1150"   y2="404" stroke="var(--ink-mute)" stroke-width="2"/>
+        <text x="1150"   y="418" class="yr-axis-period" fill="var(--ink-mute)" text-anchor="middle">1993</text>
+        <!-- 2012 — Summer III begins -->
+        <line x1="1564.2" y1="395" x2="1564.2" y2="404" stroke="var(--summer)" stroke-width="2"/>
+        <text x="1564.2" y="418" class="yr-axis-period" fill="var(--summer)" text-anchor="middle">2012</text>
+        <!-- 2026 — today -->
+        <line x1="1869.4" y1="395" x2="1869.4" y2="404" stroke="var(--ai)" stroke-width="2"/>
+        <text x="1869.4" y="418" class="yr-axis-period" fill="var(--ai)" text-anchor="end">2026</text>
+
+        <!-- decade labels (faint) for spatial reference -->
+        <text x="212.6"  y="436" class="yr-axis" text-anchor="middle" opacity="0.55">1950</text>
+        <text x="648.6"  y="436" class="yr-axis" text-anchor="middle" opacity="0.55">1970</text>
+        <text x="1084.6" y="436" class="yr-axis" text-anchor="middle" opacity="0.55">1990</text>
+        <text x="1302.6" y="436" class="yr-axis" text-anchor="middle" opacity="0.55">2000</text>
+        <text x="1738.6" y="436" class="yr-axis" text-anchor="middle" opacity="0.55">2020</text>
+      </g>
+
+      <!-- =================== EVENTS =================== -->
+      <!-- helper: x = 60 + (year-1943)*21.8 -->
+
+      <!-- ============ FOUNDATIONS ============ -->
+      <!-- 1943 McCulloch & Pitts — THE ROOT EVENT -->
+      <g class="event" data-title="McCulloch & Pitts" data-year="1943" data-body="First mathematical model of neural computation. Proved that networks of binary threshold neurons can compute any logical function — the seed of every later neural model from the Perceptron through AlexNet to Transformers. Published the same year ENIAC was being built." data-conf="high confidence — foundational paper" data-tone="gold">
+        <line x1="60" y1="220" x2="60" y2="148" stroke="var(--highlight)" stroke-width="2"/>
+        <circle cx="60" cy="148" r="5.5" fill="var(--highlight)" stroke="var(--ai)" stroke-width="1"/>
+        <text x="64" y="134" class="ev-year">1943</text>
+        <text x="64" y="120" class="ev-text"><tspan font-weight="700">McCulloch &amp; Pitts</tspan></text>
+        <text x="64" y="106" class="ev-text-soft">first computational neuron model;</text>
+        <text x="64" y="92" class="ev-text-soft">threshold nets compute any logical fn</text>
+      <circle class="hit" cx="60" cy="148" r="14"/></g>
+
+      <!-- 1949 Hebb -->
+      <g class="event" data-title="Hebb's learning rule" data-year="1949" data-body="Donald Hebb proposed that synaptic strength increases when neurons fire together. The first credible biological learning rule — directly inspires modern neural network learning algorithms decades later." data-conf="high confidence" data-tone="gold">
+        <line x1="190.8" y1="220" x2="190.8" y2="180" stroke="var(--highlight)" stroke-width="1"/>
+        <circle cx="190.8" cy="180" r="3.5" fill="var(--highlight)"/>
+        <text x="194.8" y="170" class="ev-year">1949 Hebb</text>
+        <text x="194.8" y="158" class="ev-text-soft">first learning rule</text>
+      <circle class="hit" cx="190.8" cy="180" r="14"/></g>
+
+      <!-- 1950 Turing -->
+      <g class="event" data-title="Turing — Computing Machinery & Intelligence" data-year="1950" data-body="Turing proposes the imitation game and argues machines could think in principle. Frames the philosophical question — what does it mean for a machine to be intelligent? — that the field will inherit and never quite resolve." data-conf="high confidence" data-tone="gold">
+        <line x1="212.6" y1="220" x2="212.6" y2="278" stroke="var(--highlight)" stroke-width="1.4"/>
+        <circle cx="212.6" cy="278" r="4" fill="var(--highlight)" stroke="var(--ai)" stroke-width="0.8"/>
+        <text x="216.6" y="292" class="ev-year">1950</text>
+        <text x="216.6" y="306" class="ev-text"><tspan font-weight="600">Turing,</tspan> <tspan font-style="italic">Computing</tspan></text>
+        <text x="216.6" y="320" class="ev-text"><tspan font-style="italic">Machinery &amp; Intelligence</tspan></text>
+        <text x="216.6" y="334" class="ev-text-soft">poses the question the field will inherit</text>
+      <circle class="hit" cx="212.6" cy="278" r="14"/></g>
+
+      <!-- ============ SUMMER I ============ -->
+      <!-- 1956 Dartmouth — SUMMER -->
+      <g class="event" data-title="Dartmouth Workshop" data-year="summer 1956" data-body="Two-month workshop at Dartmouth College, organized by John McCarthy with Minsky, Shannon, Newell, Simon, and Rochester. McCarthy coins the term 'artificial intelligence' here. Often cited as the field's founding event — though the science was already in place; what Dartmouth added was a name, a programme, and a funding pitch." data-conf="high confidence" data-tone="ai">
+        <line x1="343.4" y1="220" x2="343.4" y2="170" stroke="var(--ai)" stroke-width="1.4"/>
+        <circle cx="343.4" cy="170" r="4" fill="var(--ai)"/>
+        <text x="347.4" y="156" class="ev-year">1956</text>
+        <text x="347.4" y="142" class="ev-text"><tspan font-weight="600">Dartmouth Workshop</tspan></text>
+        <text x="347.4" y="128" class="ev-text-soft">McCarthy coins “AI”</text>
+      <circle class="hit" cx="343.4" cy="170" r="14"/></g>
+
+      <!-- 1957 Perceptron — summer -->
+      <g class="event" data-title="Rosenblatt — Perceptron" data-year="1957" data-body="Frank Rosenblatt's pattern recognition algorithm, implemented as the Mark I Perceptron hardware. Generated enormous press attention and military funding. Becomes the canonical example of AI overpromise after Minsky &amp; Papert's 1969 critique." data-conf="high confidence" data-tone="ai">
+        <line x1="365.2" y1="220" x2="365.2" y2="200" stroke="var(--ai)" stroke-width="1"/>
+        <circle cx="365.2" cy="200" r="3" fill="var(--ai)"/>
+        <text x="369.2" y="190" class="ev-year">1957 Perceptron</text>
+        <text x="369.2" y="178" class="ev-text-soft">Rosenblatt</text>
+      <circle class="hit" cx="365.2" cy="200" r="14"/></g>
+
+      <!-- 1958 LISP — summer -->
+      <g class="event" data-title="McCarthy — LISP" data-year="1958" data-body="John McCarthy creates LISP at MIT. Becomes the dominant AI programming language for 30+ years. Its expressive power for symbolic computation shapes how AI researchers think about the problem." data-conf="high confidence" data-tone="ai">
+        <circle cx="387" cy="220" r="2.5" fill="var(--ai)"/>
+        <text x="391" y="232" class="ev-year">’58 LISP</text>
+      <circle class="hit" cx="387" cy="220" r="14"/></g>
+
+      <!-- 1965 Simon prediction — summer (overpromise seed) -->
+      <g class="event" data-title="Simon's 20-year prediction" data-year="1965" data-body="Herbert Simon famously predicts: &quot;Machines will be capable, within twenty years, of doing any work a man can do.&quot; The defining moment of AI overpromise — the prediction expires in 1985 with no breakthrough, contributing to the second AI winter narrative." data-conf="high confidence — well-documented quote" data-tone="ai">
+        <line x1="540" y1="220" x2="540" y2="180" stroke="var(--ai)" stroke-width="1"/>
+        <circle cx="540" cy="180" r="3" fill="var(--ai)"/>
+        <text x="544" y="170" class="ev-year">1965</text>
+        <text x="544" y="158" class="ev-text"><tspan font-weight="600">Simon’s 20-year prediction</tspan></text>
+        <text x="544" y="144" class="ev-text-soft">“Machines will do any work a man can do.”</text>
+      <circle class="hit" cx="540" cy="180" r="14"/></g>
+
+      <!-- 1966 ELIZA — summer -->
+      <g class="event" data-title="Weizenbaum — ELIZA" data-year="1966" data-body="Joseph Weizenbaum's chatbot. Pattern-matched scripts simulating a Rogerian psychotherapist. Many users believed it was sentient — Weizenbaum himself was alarmed by this and later wrote critical books about the field." data-conf="high confidence" data-tone="ai">
+        <line x1="561.8" y1="220" x2="561.8" y2="248" stroke="var(--ai)" stroke-width="1"/>
+        <circle cx="561.8" cy="248" r="3" fill="var(--ai)"/>
+        <text x="565.8" y="262" class="ev-year">1966 ELIZA</text>
+      <circle class="hit" cx="561.8" cy="248" r="14"/></g>
+
+      <!-- 1969 Perceptrons book — pushes toward winter -->
+      <g class="event" data-title="Minsky & Papert — Perceptrons" data-year="1969" data-body="Book proves that single-layer perceptrons cannot learn the XOR function. Widely (and unfairly) interpreted as proving neural networks have fundamental limits. Effectively kills mainstream neural network research for ~17 years until backpropagation." data-conf="high confidence — book exists; causal interpretation contested" data-tone="winter">
+        <line x1="627.2" y1="220" x2="627.2" y2="290" stroke="var(--winter)" stroke-width="1.4"/>
+        <circle cx="627.2" cy="290" r="4" fill="var(--winter)"/>
+        <text x="631.2" y="304" class="ev-year">1969</text>
+        <text x="631.2" y="318" class="ev-text"><tspan font-weight="600">Minsky &amp; Papert,</tspan></text>
+        <text x="631.2" y="332" class="ev-text"><tspan font-style="italic">Perceptrons</tspan></text>
+        <text x="631.2" y="346" class="ev-text-soft">XOR limit kills NN research ~17 yrs</text>
+      <circle class="hit" cx="627.2" cy="290" r="14"/></g>
+
+      <!-- 1973 Lighthill Report — winter -->
+      <g class="event" data-title="Lighthill Report" data-year="1973" data-body="James Lighthill's report to the UK Science Research Council concludes AI has failed to deliver on its promises. UK government largely withdraws funding from AI research. The first national-scale loss of confidence." data-conf="high confidence" data-tone="winter">
+        <line x1="714.4" y1="220" x2="714.4" y2="278" stroke="var(--winter)" stroke-width="1.4"/>
+        <circle cx="714.4" cy="278" r="4" fill="var(--winter)"/>
+        <text x="718.4" y="292" class="ev-year">1973 Lighthill Report</text>
+        <text x="718.4" y="306" class="ev-text-soft">UK guts AI funding</text>
+      <circle class="hit" cx="714.4" cy="278" r="14"/></g>
+
+      <!-- 1974 DARPA cuts — compact, short line to avoid piercing 1969/1973 labels -->
+      <g class="event" data-title="DARPA Speech Understanding cancelled" data-year="1974" data-body="DARPA terminates the Speech Understanding Research program after disappointing results from CMU and SRI. Marks the end of the post-Sputnik decade of generous US AI funding." data-conf="high confidence" data-tone="winter">
+        <line x1="735.8" y1="220" x2="735.8" y2="240" stroke="var(--winter)" stroke-width="1"/>
+        <circle cx="735.8" cy="240" r="3" fill="var(--winter)"/>
+        <text x="739.8" y="254" class="ev-year">1974 DARPA cuts SUR</text>
+      <circle class="hit" cx="735.8" cy="240" r="14"/></g>
+
+      <!-- 1980 XCON — push to summer 2 -->
+      <g class="event" data-title="DEC's XCON expert system" data-year="1980" data-body="Digital Equipment Corporation's expert system for configuring VAX computers. Estimated to save DEC ~$40M per year by 1986. First convincing proof that expert systems can pay for themselves — triggers the second AI summer and a wave of expert-system startups." data-conf="high confidence" data-tone="ai">
+        <line x1="866.6" y1="220" x2="866.6" y2="172" stroke="var(--ai)" stroke-width="1.4"/>
+        <circle cx="866.6" cy="172" r="4" fill="var(--ai)"/>
+        <text x="870.6" y="158" class="ev-year">1980 XCON / R1</text>
+        <text x="870.6" y="144" class="ev-text-soft">DEC: $40M/yr saved → expert systems boom</text>
+      <circle class="hit" cx="866.6" cy="172" r="14"/></g>
+
+      <!-- 1982 Japan Fifth-Gen omitted from chart — described in prose for density -->
+
+      <!-- 1986 Backprop — summer -->
+      <g class="event" data-title="Backpropagation popularised" data-year="1986" data-body="Rumelhart, Hinton & Williams publish their Nature paper on backpropagation for training multi-layer networks. The algorithm itself was older (Werbos 1974), but this paper makes it usable. Solves the XOR problem and quietly reignites neural network research." data-conf="high confidence" data-tone="ai"><line x1="997.4" y1="220" x2="997.4" y2="180" stroke="var(--ai)" stroke-width="1"/>
+        <circle cx="997.4" cy="180" r="3" fill="var(--ai)"/>
+        <text x="1001.4" y="170" class="ev-year">1986 Backprop</text>
+        <text x="1001.4" y="158" class="ev-text-soft">Rumelhart, Hinton, Williams</text>
+      <circle class="hit" cx="997.4" cy="180" r="14"/></g>
+
+      <!-- 1987 LISP machine collapse — winter -->
+      <g class="event" data-title="LISP machine market collapse" data-year="1987" data-body="Specialized LISP machine vendors — Symbolics, LMI, TI Explorer — collapse as Sun and Macintosh workstations match their performance at a fraction of the price. The trigger event of the second AI winter." data-conf="high confidence" data-tone="winter">
+        <line x1="1019.2" y1="220" x2="1019.2" y2="280" stroke="var(--winter)" stroke-width="1.4"/>
+        <circle cx="1019.2" cy="280" r="4" fill="var(--winter)"/>
+        <text x="1023.2" y="294" class="ev-year">1987</text>
+        <text x="1023.2" y="308" class="ev-text"><tspan font-weight="600">LISP machine market collapse</tspan></text>
+      <circle class="hit" cx="1019.2" cy="280" r="14"/></g>
+
+      <!-- 1992 Fifth-Gen ends — compact, short line -->
+      <g class="event" data-title="Japan's Fifth Generation project ends" data-year="1992" data-body="Japan's $400M+ Fifth Generation Computer Systems project ends after 10 years with no commercial breakout product. Definitive end of the expert-systems era; the field disperses into machine learning, statistics, and other rebranded forms." data-conf="high confidence" data-tone="winter">
+        <line x1="1128.2" y1="220" x2="1128.2" y2="248" stroke="var(--winter)" stroke-width="1"/>
+        <circle cx="1128.2" cy="248" r="3" fill="var(--winter)"/>
+        <text x="1132.2" y="262" class="ev-year">1992 Fifth-Gen ends</text>
+      <circle class="hit" cx="1128.2" cy="248" r="14"/></g>
+
+      <!-- 1997 Deep Blue — quiet but signal -->
+      <g class="event" data-title="Deep Blue beats Kasparov" data-year="1997" data-body="IBM's chess computer defeats world champion Garry Kasparov in a six-game match. First time a reigning champion lost to a machine in tournament conditions. Brute-force search and hand-tuned evaluation, not 'intelligence' as the public imagined — but a credibility milestone." data-conf="high confidence" data-tone="ai">
+        <line x1="1237.2" y1="220" x2="1237.2" y2="178" stroke="var(--ai)" stroke-width="1"/>
+        <circle cx="1237.2" cy="178" r="3" fill="var(--ai)"/>
+        <text x="1241.2" y="168" class="ev-year">1997 Deep Blue beats Kasparov</text>
+      <circle class="hit" cx="1237.2" cy="178" r="14"/></g>
+
+      <!-- 2006 Hinton DBN -->
+      <g class="event" data-title="Hinton — Deep Belief Networks" data-year="2006" data-body="Hinton, Osindero &amp; Teh's deep-belief-network paper rebrands neural networks as 'deep learning.' Demonstrates that layer-wise pretraining solves vanishing-gradient problems. Quiet at the time, but the rebrand sticks." data-conf="high confidence" data-tone="ai">
+        <line x1="1433.4" y1="220" x2="1433.4" y2="190" stroke="var(--ai)" stroke-width="1"/>
+        <circle cx="1433.4" cy="190" r="3" fill="var(--ai)"/>
+        <text x="1437.4" y="180" class="ev-year">2006 Hinton DBN</text>
+        <text x="1437.4" y="168" class="ev-text-soft">“deep learning” rebrand</text>
+      <circle class="hit" cx="1433.4" cy="190" r="14"/></g>
+
+      <!-- 2009 ImageNet -->
+      <g class="event" data-title="Fei-Fei Li launches ImageNet" data-year="2009" data-body="14M-image hand-labeled dataset organised around WordNet. Provides the benchmark on which the deep learning revolution will be measured. Without ImageNet, AlexNet doesn't have a stage in 2012." data-conf="high confidence" data-tone="ai">
+        <line x1="1498.8" y1="220" x2="1498.8" y2="252" stroke="var(--ai)" stroke-width="1"/>
+        <circle cx="1498.8" cy="252" r="3" fill="var(--ai)"/>
+        <text x="1502.8" y="266" class="ev-year">2009 ImageNet</text>
+        <text x="1502.8" y="278" class="ev-text-soft">Fei-Fei Li</text>
+      <circle class="hit" cx="1498.8" cy="252" r="14"/></g>
+
+      <!-- 2011 IBM Watson — trimmed to clear 2014 marker line at x=1607.8 -->
+      <g class="event" data-title="Watson wins Jeopardy!" data-year="2011" data-body="IBM's Watson defeats Ken Jennings and Brad Rutter on Jeopardy!. Massive PR moment for AI generally. The underlying tech (DeepQA) is largely classical NLP — but the public read it as machines winning at human knowledge tasks." data-conf="high confidence" data-tone="ai">
+        <circle cx="1542.4" cy="220" r="2.5" fill="var(--ai)"/>
+        <text x="1546.4" y="232" class="ev-year">IBM Watson</text>
+      <circle class="hit" cx="1542.4" cy="220" r="14"/></g>
+
+      <!-- 2012 AlexNet — IGNITION -->
+      <g class="event" data-title="AlexNet wins ImageNet" data-year="2012" data-body="Krizhevsky, Sutskever &amp; Hinton win ImageNet with a deep CNN trained on two consumer GTX 580 GPUs. Halves the error rate of the previous best entry. THE ignition event of the deep-learning era — every subsequent breakthrough builds on this template." data-conf="high confidence — paper, code, and result all verified" data-tone="ai">
+        <line x1="1564.2" y1="220" x2="1564.2" y2="160" stroke="var(--ai)" stroke-width="1.6"/>
+        <circle cx="1564.2" cy="160" r="5" fill="var(--ai)"/>
+        <text x="1568.2" y="146" class="ev-year">2012</text>
+        <text x="1568.2" y="132" class="ev-text"><tspan font-weight="700">AlexNet wins ImageNet</tspan></text>
+        <text x="1568.2" y="118" class="ev-text-soft">GPU + CNN — the ignition</text>
+      <circle class="hit" cx="1564.2" cy="160" r="14"/></g>
+
+      <!-- 2014 GANs -->
+      <g class="event" data-title="Goodfellow — Generative Adversarial Networks" data-year="2014" data-body="Two networks compete: one generates samples, one tries to discriminate real from generated. Foundation for modern image and video generation; predecessor to today's diffusion models in the public imagination." data-conf="high confidence" data-tone="ai">
+        <line x1="1607.8" y1="220" x2="1607.8" y2="252" stroke="var(--ai)" stroke-width="1"/>
+        <circle cx="1607.8" cy="252" r="3" fill="var(--ai)"/>
+        <text x="1611.8" y="266" class="ev-year">2014 GANs</text>
+      <circle class="hit" cx="1607.8" cy="252" r="14"/></g>
+
+      <!-- 2016 AlphaGo — trimmed to clear 2022 marker line -->
+      <g class="event" data-title="DeepMind — AlphaGo beats Lee Sedol" data-year="2016" data-body="DeepMind's AlphaGo defeats Lee Sedol 4–1. Go was long thought to be a decade away. Game 4 was a famous human win; the rest were AlphaGo dominance — including Move 37 in Game 2, considered superhuman." data-conf="high confidence" data-tone="ai">
+        <line x1="1651.4" y1="220" x2="1651.4" y2="186" stroke="var(--ai)" stroke-width="1"/>
+        <circle cx="1651.4" cy="186" r="3.5" fill="var(--ai)"/>
+        <text x="1655.4" y="174" class="ev-year">2016 AlphaGo</text>
+      <circle class="hit" cx="1651.4" cy="186" r="14"/></g>
+
+      <!-- 2017 Transformer — pivotal -->
+      <g class="event" data-title="Vaswani et al. — Attention Is All You Need" data-year="2017" data-body="Self-attention replaces RNN and CNN architectures for sequence modelling. Foundation of every subsequent large language model — BERT, GPT-1/2/3/4, Claude, Gemini. Arguably the most consequential ML paper of the decade." data-conf="high confidence" data-tone="ai">
+        <line x1="1673.2" y1="220" x2="1673.2" y2="278" stroke="var(--ai)" stroke-width="1.6"/>
+        <circle cx="1673.2" cy="278" r="4.5" fill="var(--ai)"/>
+        <text x="1677.2" y="292" class="ev-year">2017</text>
+        <text x="1677.2" y="306" class="ev-text"><tspan font-weight="700">“Attention Is All You Need”</tspan></text>
+        <text x="1677.2" y="320" class="ev-text-soft">Transformer — Vaswani et al.</text>
+      <circle class="hit" cx="1673.2" cy="278" r="14"/></g>
+
+      <!-- 2018 BERT/GPT-1 omitted — pinned between 2017 and 2020 markers, covered in prose -->
+
+      <!-- 2020 GPT-3 — right-anchored to clear 2022 marker line at x=1782.2 -->
+      <g class="event" data-title="OpenAI — GPT-3" data-year="2020" data-body="175-billion-parameter language model. First convincing demonstration of in-context / few-shot learning at scale. Spawns the LLM commercial era; copilot-style applications begin appearing throughout 2021–22." data-conf="high confidence" data-tone="ai">
+        <line x1="1738.6" y1="220" x2="1738.6" y2="200" stroke="var(--ai)" stroke-width="1"/>
+        <circle cx="1738.6" cy="200" r="3" fill="var(--ai)"/>
+        <text x="1734.6" y="190" class="ev-year" text-anchor="end">2020 GPT-3</text>
+      <circle class="hit" cx="1738.6" cy="200" r="14"/></g>
+
+      <!-- 2022 Nov ChatGPT — DEFINING -->
+      <g class="event" data-title="ChatGPT released" data-year="30 Nov 2022" data-body="OpenAI releases ChatGPT publicly. Reaches 100M monthly active users within 2 months — the fastest consumer product adoption in history. Generative AI becomes mainstream overnight; cannibalises capital, GPU allocation, and engineering attention from the metaverse." data-conf="high confidence" data-tone="ai">
+        <line x1="1782.2" y1="220" x2="1782.2" y2="148" stroke="var(--ai)" stroke-width="2"/>
+        <circle cx="1782.2" cy="148" r="6" fill="var(--ai)"/>
+        <text x="1786.2" y="134" class="ev-year">30 Nov 2022</text>
+        <text x="1786.2" y="120" class="ev-text"><tspan font-weight="700">ChatGPT</tspan></text>
+        <text x="1786.2" y="106" class="ev-text-soft">100M users · 2 mo</text>
+      <circle class="hit" cx="1782.2" cy="148" r="14"/></g>
+
+      <!-- 2023 GPT-4 omitted — overlapped Transformer label, right-edge clip risk -->
+
+      <!-- 2024 o1 reasoning — moved below axis, trimmed -->
+      <g class="event" data-title="OpenAI o1 — reasoning at inference" data-year="2024" data-body="First production model to use inference-time chain-of-thought reasoning at scale. Paradigm shift from pretrained generation toward deliberative reasoning. Followed by Anthropic's extended thinking, DeepSeek-R1, and similar reasoning systems." data-conf="high confidence" data-tone="ai">
+        <line x1="1825.8" y1="220" x2="1825.8" y2="240" stroke="var(--ai)" stroke-width="1"/>
+        <circle cx="1825.8" cy="240" r="3" fill="var(--ai)"/>
+        <text x="1822" y="254" class="ev-year" text-anchor="end">2024 o1 · reasoning</text>
+      <circle class="hit" cx="1825.8" cy="240" r="14"/></g>
+
+      <!-- 2025-26 Agentic AI omitted — would clip right viewBox edge; described in prose -->
+
+      <!-- annotations / arcs -->
+      <text x="1357.1" y="372" class="annot" text-anchor="middle">"AI" became a dirty word — branded as ML, statistics, data mining</text>
+      <text x="201.7" y="378" class="annot" text-anchor="middle" font-size="11">conceptual building blocks · before AI had a name</text>
+
+    </svg>
+  </div>
+
+  <div class="prose">
+    <p><strong>Before AI had a name, it had a mathematics.</strong> McCulloch &amp; Pitts (1943) proved that networks of binary threshold neurons could in principle compute any logical function — the seed of every later neural model from Rosenblatt’s Perceptron through AlexNet to Transformers. Hebb (1949) supplied the first credible learning rule. Turing (1950) framed the inheritance question. By the time McCarthy convened Dartmouth in 1956, the conceptual scaffolding already existed; what Dartmouth added was a name, a programme, and an organised funding pitch.</p>
+    <p><strong>Three summers, two real winters.</strong> The first AI summer was a funding-and-promise bubble around symbolic reasoning that collapsed under combinatorial explosion and overpromising — Lighthill in 1973 and DARPA cutting speech-understanding in 1974 closed the era. The second was an industrial bubble around expert systems and Japan’s Fifth-Generation programme, killed when LISP-machine vendors were obsoleted by general-purpose Sun and Macintosh workstations after 1987.</p>
+    <p><strong>The interregnum mattered.</strong> The 1993–2011 “quiet” years are sometimes mis-remembered as a winter, but capability advanced steadily under disguised names — machine learning, statistical methods, kernel methods, data mining. Hinton’s 2006 deep-belief-network paper rebranded neural nets as “deep learning,” and ImageNet (2009) gave the field a benchmark to chase.</p>
+    <p><strong>The current summer started with hardware.</strong> AlexNet (2012) was not algorithmically novel — it was CNNs running on GPUs, the same McCulloch-Pitts threshold neurons in a deeper stack. The Transformer (2017) then provided the architecture that scales with compute, and ChatGPT (Nov 2022) compressed eight decades of research into a consumer product moment. Whether the current cycle ends in a winter, a plateau, or general AI remains open. <em>Confidence: high on history, low on forward call.</em></p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CHAPTER II — VR / METAVERSE                                  -->
+  <!-- ============================================================ -->
+  <section class="chapter">
+    <div class="num">Chapter II · Virtual Reality &amp; Metaverse</div>
+    <h2>Two false dawns, a hardware miracle, and a $46-billion rebrand.</h2>
+    <div class="sub">Hardware constraints, consumer adoption curves, and the optical limits of immersion.</div>
+  </section>
+
+  <div class="scroll">
+    <svg viewBox="0 0 1720 460" xmlns="http://www.w3.org/2000/svg" aria-label="VR timeline 1962–2026">
+      <defs>
+        <linearGradient id="summer-grad-2" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%"  stop-color="var(--summer)" stop-opacity="0.20"/>
+          <stop offset="100%" stop-color="var(--summer)" stop-opacity="0.06"/>
+        </linearGradient>
+        <linearGradient id="winter-grad-2" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%"  stop-color="var(--winter)" stop-opacity="0.05"/>
+          <stop offset="100%" stop-color="var(--winter)" stop-opacity="0.22"/>
+        </linearGradient>
+      </defs>
+
+      <!-- VR: 1962-2026 = 64 yrs.
+           x(year) = 60 + (year-1962)*25.15.  Use 25 px/yr for cleaner.
+           Total: 60 + 64*25 = 1660. Fits.  Use x = 60 + (year-1962)*25 -->
+
+      <!-- bands -->
+      <!-- Pre-history quiet 1962-1984 -->
+      <rect x="60" y="30" width="550" height="350" fill="rgba(20,20,20,0.035)"/>
+      <!-- Summer 1: 1985-1995 -->
+      <rect x="635" y="30" width="250" height="350" fill="url(#summer-grad-2)"/>
+      <!-- Winter 1: 1996-2011 -->
+      <rect x="910" y="30" width="400" height="350" fill="url(#winter-grad-2)"/>
+      <!-- Summer 2: 2012-2017 (Oculus era) -->
+      <rect x="1310" y="30" width="125" height="350" fill="url(#summer-grad-2)"/>
+      <!-- Trough 2018-2019 -->
+      <rect x="1435" y="30" width="50" height="350" fill="rgba(45,74,94,0.10)"/>
+      <!-- Summer 3 / Metaverse: 2020-2022 -->
+      <rect x="1485" y="30" width="75" height="350" fill="url(#summer-grad-2)"/>
+      <!-- Metaverse Winter: 2022-2024 -->
+      <rect x="1560" y="30" width="50" height="350" fill="url(#winter-grad-2)"/>
+      <!-- Spatial computing recovery 2024-2026 -->
+      <rect x="1610" y="30" width="50" height="350" fill="rgba(217,122,44,0.10)"/>
+
+      <!-- band labels -->
+      <text x="335" y="55" class="band-label" fill="var(--ink-mute)" text-anchor="middle" font-size="13">Pre-history — research labs &amp; military</text>
+      <text x="760" y="55" class="band-label" fill="var(--summer)" text-anchor="middle" font-size="13">Summer I — VPL / Virtuality / cyberspace</text>
+      <text x="1110" y="55" class="band-label" fill="var(--winter)" text-anchor="middle" font-size="13">Winter I — “VR is dead”</text>
+      <text x="1372" y="55" class="band-label" fill="var(--summer)" text-anchor="middle" font-size="11">Summer II · Oculus</text>
+      <text x="1460" y="68" class="band-label" fill="var(--winter)" text-anchor="middle" font-size="10">trough</text>
+      <text x="1522" y="55" class="band-label" fill="var(--summer)" text-anchor="middle" font-size="11">Metaverse</text>
+      <text x="1585" y="55" class="band-label" fill="var(--winter)" text-anchor="middle" font-size="10">Winter II</text>
+      <text x="1635" y="55" class="band-label" fill="var(--summer)" text-anchor="middle" font-size="10">Spatial</text>
+
+      <!-- center line -->
+      <line x1="60" y1="220" x2="1670" y2="220" stroke="var(--rule)" stroke-width="1.5"/>
+
+      <!-- decade gridlines (faint reference) + period boundary year axis -->
+      <g>
+        <!-- faint decade reference lines -->
+        <line x1="260"  y1="215" x2="260"  y2="395" stroke="var(--ink-mute)" stroke-dasharray="1 5" stroke-width="0.4" opacity="0.5"/>
+        <line x1="510"  y1="215" x2="510"  y2="395" stroke="var(--ink-mute)" stroke-dasharray="1 5" stroke-width="0.4" opacity="0.5"/>
+        <line x1="760"  y1="215" x2="760"  y2="395" stroke="var(--ink-mute)" stroke-dasharray="1 5" stroke-width="0.4" opacity="0.5"/>
+        <line x1="1010" y1="215" x2="1010" y2="395" stroke="var(--ink-mute)" stroke-dasharray="1 5" stroke-width="0.4" opacity="0.5"/>
+        <line x1="1260" y1="215" x2="1260" y2="395" stroke="var(--ink-mute)" stroke-dasharray="1 5" stroke-width="0.4" opacity="0.5"/>
+        <line x1="1510" y1="215" x2="1510" y2="395" stroke="var(--ink-mute)" stroke-dasharray="1 5" stroke-width="0.4" opacity="0.5"/>
+
+        <!-- period boundary years coloured by the era they begin -->
+        <!-- 1962 — pre-history start -->
+        <line x1="60"   y1="395" x2="60"   y2="404" stroke="var(--ink-mute)" stroke-width="2"/>
+        <text x="60"   y="418" class="yr-axis-period" fill="var(--ink-mute)" text-anchor="start">1962</text>
+        <!-- 1985 — Summer 1 begins -->
+        <line x1="635"  y1="395" x2="635"  y2="404" stroke="var(--summer)" stroke-width="2"/>
+        <text x="635"  y="418" class="yr-axis-period" fill="var(--summer)" text-anchor="middle">1985</text>
+        <!-- 1996 — Winter 1 begins -->
+        <line x1="910"  y1="395" x2="910"  y2="404" stroke="var(--winter)" stroke-width="2"/>
+        <text x="910"  y="418" class="yr-axis-period" fill="var(--winter)" text-anchor="middle">1996</text>
+        <!-- 2012 — Summer 2 (Oculus) begins -->
+        <line x1="1310" y1="395" x2="1310" y2="404" stroke="var(--summer)" stroke-width="2"/>
+        <text x="1310" y="418" class="yr-axis-period" fill="var(--summer)" text-anchor="middle">2012</text>
+        <!-- 2018 — Trough -->
+        <line x1="1460" y1="395" x2="1460" y2="404" stroke="var(--winter)" stroke-width="2"/>
+        <text x="1460" y="418" class="yr-axis-period" fill="var(--winter)" text-anchor="middle">2018</text>
+        <!-- 2020 — Metaverse summer -->
+        <line x1="1510" y1="395" x2="1510" y2="404" stroke="var(--summer)" stroke-width="2"/>
+        <text x="1510" y="418" class="yr-axis-period" fill="var(--summer)" text-anchor="middle">2020</text>
+        <!-- 2022 — Metaverse winter -->
+        <line x1="1560" y1="395" x2="1560" y2="404" stroke="var(--winter)" stroke-width="2"/>
+        <text x="1560" y="418" class="yr-axis-period" fill="var(--winter)" text-anchor="middle">2022</text>
+        <!-- 2024 — Spatial computing -->
+        <line x1="1610" y1="395" x2="1610" y2="404" stroke="var(--highlight)" stroke-width="2"/>
+        <text x="1610" y="418" class="yr-axis-period" fill="var(--highlight)" text-anchor="middle">2024</text>
+        <!-- 2026 — today -->
+        <line x1="1660" y1="395" x2="1660" y2="404" stroke="var(--vr)" stroke-width="2"/>
+        <text x="1660" y="418" class="yr-axis-period" fill="var(--vr)" text-anchor="end">2026</text>
+
+        <!-- decade labels (faint reference; only ones not covered by period years) -->
+        <text x="260"  y="436" class="yr-axis" text-anchor="middle" opacity="0.55">1970</text>
+        <text x="760"  y="436" class="yr-axis" text-anchor="middle" opacity="0.55">1990</text>
+        <text x="1010" y="436" class="yr-axis" text-anchor="middle" opacity="0.55">2000</text>
+        <text x="1260" y="436" class="yr-axis" text-anchor="middle" opacity="0.55">2010</text>
+      </g>
+
+      <!-- =================== VR EVENTS =================== -->
+      <!-- x = 60 + (year-1962)*25 -->
+
+      <!-- 1962 Sensorama — push (research seed) -->
+      <g class="event" data-title="Heilig — Sensorama" data-year="1962" data-body="Morton Heilig's mechanical immersive cabinet. The first multi-sensory machine: stereo 3D film, stereo sound, smell, vibration, wind. Patented but commercial failure — way ahead of the technology base needed to support it." data-conf="high confidence" data-tone="vr">
+        <line x1="60" y1="220" x2="60" y2="180" stroke="var(--vr)" stroke-width="1"/>
+        <circle cx="60" cy="180" r="3.5" fill="var(--vr)"/>
+        <text x="64" y="170" class="ev-year">1962 Sensorama</text>
+        <text x="64" y="158" class="ev-text-soft">Heilig — first immersive media cabinet</text>
+      <circle class="hit" cx="60" cy="180" r="14"/></g>
+
+      <!-- 1968 Sword of Damocles -->
+      <g class="event" data-title="Sutherland — Sword of Damocles" data-year="1968" data-body="Ivan Sutherland's tethered head-mounted display at the University of Utah. First HMD with head-tracking and stereoscopic 3D. So heavy it had to be suspended from the ceiling — hence the name. Conceptual foundation of every later HMD." data-conf="high confidence" data-tone="vr">
+        <line x1="210" y1="220" x2="210" y2="194" stroke="var(--vr)" stroke-width="1"/>
+        <circle cx="210" cy="194" r="3.5" fill="var(--vr)"/>
+        <text x="214" y="184" class="ev-year">1968 Sword of Damocles</text>
+        <text x="214" y="172" class="ev-text-soft">Sutherland — first HMD</text>
+      <circle class="hit" cx="210" cy="194" r="14"/></g>
+
+      <!-- 1984 VPL founded -->
+      <g class="event" data-title="Lanier — VPL Research founded" data-year="1984" data-body="Jaron Lanier founds VPL Research. First commercial VR company. Lanier coins 'virtual reality' as a marketing term to bundle the EyePhone, DataGlove, and DataSuit into a sellable concept." data-conf="high confidence" data-tone="vr">
+        <line x1="610" y1="220" x2="610" y2="170" stroke="var(--vr)" stroke-width="1.4"/>
+        <circle cx="610" cy="170" r="4" fill="var(--vr)"/>
+        <text x="614" y="158" class="ev-year">1984</text>
+        <text x="614" y="144" class="ev-text"><tspan font-weight="600">VPL Research founded</tspan></text>
+        <text x="614" y="130" class="ev-text-soft">Lanier coins “virtual reality”</text>
+      <circle class="hit" cx="610" cy="170" r="14"/></g>
+
+      <!-- 1989 EyePhone / DataGlove -->
+      <g class="event" data-title="VPL — EyePhone &amp; DataGlove ship" data-year="1989" data-body="VPL's commercial VR products: EyePhone HMD ($9,400–$49,000) and DataGlove ($8,800). Hopelessly expensive for any market beyond research labs and high-end industrial — but seeded a generation of VR researchers and shaped the 1990s aesthetic." data-conf="high confidence" data-tone="vr">
+        <line x1="735" y1="220" x2="735" y2="200" stroke="var(--vr)" stroke-width="1"/>
+        <circle cx="735" cy="200" r="3" fill="var(--vr)"/>
+        <text x="739" y="190" class="ev-year">1989 EyePhone · DataGlove</text>
+      <circle class="hit" cx="735" cy="200" r="14"/></g>
+
+      <!-- 1991 Virtuality omitted — between 1989 EyePhone and 1992 Snow Crash, covered in prose -->
+
+      <!-- 1992 Snow Crash — pivotal (compacted to 2 lines; ‘metaverse’ coining noted in prose + annotation) -->
+      <g class="event" data-title="Stephenson — Snow Crash" data-year="1992" data-body="Neal Stephenson's novel introduces 'metaverse' to the language — a shared virtual space accessed via avatars. Released the same year as the film The Lawnmower Man. Cultural peak of the first VR hype cycle. Every subsequent metaverse pitch is, consciously or not, descended from this book." data-conf="high confidence" data-tone="vr">
+        <line x1="810" y1="220" x2="810" y2="270" stroke="var(--vr)" stroke-width="1.6"/>
+        <circle cx="810" cy="270" r="4.5" fill="var(--vr)"/>
+        <text x="814" y="284" class="ev-year">1992</text>
+        <text x="814" y="298" class="ev-text"><tspan font-weight="700">Snow Crash</tspan></text>
+      <circle class="hit" cx="810" cy="270" r="14"/></g>
+
+      <!-- 1995 Virtual Boy — push to winter -->
+      <g class="event" data-title="Nintendo — Virtual Boy flops" data-year="1995" data-body="Nintendo's stereoscopic VR console. Red-on-black monochrome display, induced headaches and nausea, no head-tracking. Commercial flop; discontinued in 1996. Became the canonical artefact of why VR couldn't deliver in the 1990s — the silicon and optics simply weren't ready." data-conf="high confidence" data-tone="winter">
+        <line x1="885" y1="220" x2="885" y2="278" stroke="var(--winter)" stroke-width="1.6"/>
+        <circle cx="885" cy="278" r="4.5" fill="var(--winter)"/>
+        <text x="889" y="292" class="ev-year">1995</text>
+        <text x="889" y="306" class="ev-text"><tspan font-weight="700">Nintendo Virtual Boy flops</tspan></text>
+      <circle class="hit" cx="885" cy="278" r="14"/></g>
+
+      <!-- 1999 VPL patents → Sun — compact, short line -->
+      <g class="event" data-title="Sun acquires VPL patents" data-year="1999" data-body="Sun Microsystems acquires VPL Research's patent portfolio after VPL's bankruptcy. Symbolic end of the first commercial VR era. The patents largely sit dormant for a decade." data-conf="high confidence" data-tone="winter">
+        <line x1="985" y1="220" x2="985" y2="260" stroke="var(--winter)" stroke-width="1"/>
+        <circle cx="985" cy="260" r="3" fill="var(--winter)"/>
+        <text x="989" y="274" class="ev-year">1999 VPL → Sun</text>
+      <circle class="hit" cx="985" cy="260" r="14"/></g>
+
+      <!-- 2003 Second Life -->
+      <g class="event" data-title="Linden Lab — Second Life" data-year="2003" data-body="Linden Lab's screen-based virtual world (no HMD). Reaches ~1M active users by 2007. Not VR proper, but the metaverse-precursor concept proven at consumer scale — and the ancestor of every later social-virtual-world pitch." data-conf="moderate confidence — social impact contested" data-tone="vr">
+        <line x1="1085" y1="220" x2="1085" y2="190" stroke="var(--vr)" stroke-width="1"/>
+        <circle cx="1085" cy="190" r="3" fill="var(--vr)"/>
+        <text x="1089" y="180" class="ev-year">2003 Second Life</text>
+        <text x="1089" y="168" class="ev-text-soft">screen-based metaverse precursor</text>
+      <circle class="hit" cx="1085" cy="190" r="14"/></g>
+
+      <!-- 2012 Aug — Oculus Kickstarter — IGNITION -->
+      <g class="event" data-title="Luckey — Oculus Rift Kickstarter" data-year="Aug 2012" data-body="Palmer Luckey's Kickstarter campaign raises $2.4M (10× goal). Built on commodity smartphone displays and IMUs — the same hardware wave powering AlexNet a few months later. Reignites VR after a 15-year hiatus. THE ignition event for the second VR era." data-conf="high confidence" data-tone="vr">
+        <line x1="1310" y1="220" x2="1310" y2="160" stroke="var(--vr)" stroke-width="1.6"/>
+        <circle cx="1310" cy="160" r="5" fill="var(--vr)"/>
+        <text x="1314" y="146" class="ev-year">Aug 2012</text>
+        <text x="1314" y="132" class="ev-text"><tspan font-weight="700">Oculus Rift Kickstarter</tspan></text>
+        <text x="1314" y="118" class="ev-text-soft">Palmer Luckey · $2.4M raised</text>
+      <circle class="hit" cx="1310" cy="160" r="14"/></g>
+
+      <!-- 2014 Mar — Facebook acquires Oculus -->
+      <g class="event" data-title="Facebook acquires Oculus" data-year="Mar 2014" data-body="Facebook acquires Oculus VR for $2 billion. Zuckerberg's seven-year bet on VR as the next computing platform. Foreshadows the 2021 Meta rebrand — and same year Google acquires DeepMind, parallel bets across both fields." data-conf="high confidence" data-tone="vr">
+        <line x1="1360" y1="220" x2="1360" y2="282" stroke="var(--vr)" stroke-width="1.6"/>
+        <circle cx="1360" cy="282" r="4.5" fill="var(--vr)"/>
+        <text x="1364" y="296" class="ev-year">Mar 2014</text>
+        <text x="1364" y="310" class="ev-text"><tspan font-weight="700">Facebook acquires Oculus</tspan></text>
+        <text x="1364" y="324" class="ev-text-soft">$2 B — Zuckerberg’s long bet</text>
+      <circle class="hit" cx="1360" cy="282" r="14"/></g>
+
+      <!-- 2016 Rift / Vive / PSVR — single short line -->
+      <g class="event" data-title="Consumer VR ships — Rift, Vive, PSVR" data-year="2016" data-body="Three consumer VR headsets ship within months: Oculus Rift ($599), HTC Vive ($799), PlayStation VR ($399). First true consumer VR generation. Sales underperform every analyst forecast — the killer app problem becomes visible." data-conf="high confidence" data-tone="vr">
+        <line x1="1410" y1="220" x2="1410" y2="186" stroke="var(--vr)" stroke-width="1"/>
+        <circle cx="1410" cy="186" r="3.5" fill="var(--vr)"/>
+        <text x="1414" y="174" class="ev-year">Rift, Vive, PSVR</text>
+      <circle class="hit" cx="1410" cy="186" r="14"/></g>
+
+      <!-- 2018 Magic Leap omitted — overlap with 2021/2022 markers; covered in prose -->
+
+      <!-- 2019 Oculus Quest omitted — collapsed into 2020 Quest 2 narrative; covered in prose -->
+
+      <!-- 2020 Quest 2 — biggest VR success, 2-line label -->
+      <g class="event" data-title="Meta — Quest 2 launches" data-year="Oct 2020" data-body="Quest 2 ships at $299 — a price point that finally cracked the consumer adoption curve. Sells ~20M+ units, becoming the best-selling VR headset of all time. COVID lockdowns and idle attention fuel adoption." data-conf="high confidence — sales numbers via Meta filings" data-tone="vr">
+        <line x1="1510" y1="220" x2="1510" y2="170" stroke="var(--vr)" stroke-width="1.4"/>
+        <circle cx="1510" cy="170" r="4" fill="var(--vr)"/>
+        <text x="1514" y="158" class="ev-year">Oct 2020</text>
+        <text x="1514" y="144" class="ev-text"><tspan font-weight="600">Quest 2 launches</tspan></text>
+      <circle class="hit" cx="1510" cy="170" r="14"/></g>
+
+      <!-- 2021 Oct 28 — Meta rebrand — DEFINING moment (3 lines) -->
+      <g class="event" data-title="Facebook → Meta rebrand" data-year="28 Oct 2021" data-body="Facebook renames to Meta. Zuckerberg announces the metaverse as the next computing platform and pledges tens of billions in investment. The defining moment of metaverse hype — and, with hindsight, the peak." data-conf="high confidence" data-tone="vr">
+        <line x1="1535" y1="220" x2="1535" y2="290" stroke="var(--vr)" stroke-width="2"/>
+        <circle cx="1535" cy="290" r="6" fill="var(--vr)"/>
+        <text x="1539" y="304" class="ev-year">28 Oct 2021</text>
+        <text x="1539" y="318" class="ev-text"><tspan font-weight="700">Facebook → Meta</tspan></text>
+        <text x="1539" y="332" class="ev-text-soft">Metaverse hype peak</text>
+      <circle class="hit" cx="1535" cy="290" r="14"/></g>
+
+      <!-- 2022 Reality Labs −$13.7 B — compact, short line -->
+      <g class="event" data-title="Reality Labs loses $13.7B" data-year="2022" data-body="Meta's Reality Labs division loses $13.7 billion in fiscal 2022 alone. Cumulative losses since 2019 exceed $36B by year-end. Public scepticism mounts; Meta share price falls; ChatGPT launches one month later and absorbs the remaining oxygen." data-conf="high confidence — figures from Meta 10-K" data-tone="winter">
+        <line x1="1560" y1="220" x2="1560" y2="260" stroke="var(--winter)" stroke-width="1.4"/>
+        <circle cx="1560" cy="260" r="3.5" fill="var(--winter)"/>
+        <text x="1564" y="274" class="ev-year"><tspan font-weight="600">Reality Labs −$13.7 B</tspan></text>
+      <circle class="hit" cx="1560" cy="260" r="14"/></g>
+
+      <!-- 2023 Disney closure omitted — Reality Labs cumulative loss noted in prose -->
+
+      <!-- 2024 Feb — Apple Vision Pro — 2 lines -->
+      <g class="event" data-title="Apple Vision Pro ships" data-year="Feb 2024" data-body="Apple Vision Pro ships at $3,499. Rebranded as 'spatial computing' rather than VR/metaverse. Premium positioning, hand+eye tracking, dual 4K micro-OLED panels. Production targets reportedly cut within 12 months as the device searches for its killer app." data-conf="high confidence on launch; moderate on production trajectory" data-tone="vr">
+        <line x1="1610" y1="220" x2="1610" y2="170" stroke="var(--vr)" stroke-width="1.4"/>
+        <circle cx="1610" cy="170" r="4" fill="var(--vr)"/>
+        <text x="1614" y="158" class="ev-year">Feb 2024</text>
+        <text x="1614" y="144" class="ev-text"><tspan font-weight="600">Apple Vision Pro</tspan></text>
+      <circle class="hit" cx="1610" cy="170" r="14"/></g>
+
+      <!-- 2025 Vision Pro production cuts omitted — described in prose -->
+
+      <!-- 2026 today (below axis to clear 2024 marker line) -->
+      <g class="event" data-title="Today (May 2026)" data-year="2026" data-body="Apple has cut Vision Pro production. Meta has pivoted to Quest 3S at $299 — the low-end mainstream play. The metaverse winter is real but partial; the underlying technology continues to improve while public enthusiasm has migrated to AI." data-conf="current state" data-tone="vr">
+        <circle cx="1660" cy="220" r="3" fill="var(--vr)"/>
+        <text x="1656" y="232" class="ev-year" text-anchor="end">2026 →</text>
+      <circle class="hit" cx="1660" cy="220" r="14"/></g>
+
+      <!-- floating annotations -->
+      <text x="850" y="386" class="annot" text-anchor="middle" font-size="11">
+        <tspan font-style="italic">‘metaverse’</tspan> first coined by Stephenson, 1992
+      </text>
+      <text x="1110" y="252" class="annot" text-anchor="middle">Hardware too primitive · displays low-DPI · CPUs unable to render scenes · no content ecosystem</text>
+
+    </svg>
+  </div>
+
+  <div class="prose">
+    <p><strong>VR’s cycles run on hardware physics, not algorithms.</strong> The 1985–95 summer collapsed because the silicon could not deliver what the marketing promised — the Virtual Boy is the canonical artefact, but the deeper failure was that PC graphics in 1995 simply could not render an immersive scene at sufficient resolution and framerate without inducing nausea. Sixteen years of Moore’s Law had to pass before Oculus could reasonably try again.</p>
+    <p><strong>The 2014 Facebook acquisition was a 7-year head fake.</strong> Zuckerberg’s $2 B Oculus bet bought the company a generation of capital, but consumer VR underperformed every analyst forecast between 2016 and 2019. Quest (2019) and Quest 2 (2020) finally cracked the price-and-comfort curve. Then COVID, idle attention, and crypto-fuelled liquidity converged into the metaverse hype peak of late 2021.</p>
+    <p><strong>The metaverse winter was largely an AI eclipse.</strong> Cumulative Reality Labs losses crossed $46 B by 2023. ChatGPT (Nov 2022) didn’t just compete for headlines — it competed for engineering talent, capital allocation, and executive attention at every large tech company. Apple’s “spatial computing” rebrand in 2024 is the same hardware story under a new label; Vision Pro production was cut back by 2025. <em>Confidence: high on numbers, moderate on causal weighting of the AI eclipse — it is one of several factors.</em></p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CHAPTER III — COMBINED                                       -->
+  <!-- ============================================================ -->
+  <section class="chapter">
+    <div class="num">Chapter III · The Combined Picture</div>
+    <h2>Where the cycles correlate, anti-correlate, and where one ate the other.</h2>
+    <div class="sub">Two lanes on one axis — read vertically to see what coincided.</div>
+  </section>
+
+  <div class="scroll">
+    <svg viewBox="0 0 1900 560" xmlns="http://www.w3.org/2000/svg" aria-label="Combined AI + VR timeline 1943–2026">
+      <defs>
+        <linearGradient id="summer-grad-3" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%"  stop-color="var(--summer)" stop-opacity="0.22"/>
+          <stop offset="100%" stop-color="var(--summer)" stop-opacity="0.06"/>
+        </linearGradient>
+        <linearGradient id="winter-grad-3" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%"  stop-color="var(--winter)" stop-opacity="0.05"/>
+          <stop offset="100%" stop-color="var(--winter)" stop-opacity="0.22"/>
+        </linearGradient>
+        <pattern id="founder-hatch-3" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+          <rect width="6" height="6" fill="rgba(199,154,59,0.10)"/>
+          <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(199,154,59,0.35)" stroke-width="0.6"/>
+        </pattern>
+      </defs>
+
+      <!-- shared x-axis 1943-2026 (83 yrs).
+           plot-x = 80 + (year-1943)*21.5.  total = 80 + 83*21.5 = 1864.5  → fits 1900. -->
+
+      <!-- AI lane:   y 60-220, line 140 -->
+      <!-- VR lane:   y 280-440, line 360 -->
+
+      <!-- AI bands -->
+      <rect x="80"     y="60" width="279.5" height="160" fill="url(#founder-hatch-3)"/>  <!-- Foundations 1943-1956 -->
+      <rect x="359.5"  y="60" width="387"   height="160" fill="url(#summer-grad-3)"/>    <!-- Summer I 1956-1974 -->
+      <rect x="746.5"  y="60" width="129"   height="160" fill="url(#winter-grad-3)"/>    <!-- Winter I 1974-1980 -->
+      <rect x="875.5"  y="60" width="150.5" height="160" fill="url(#summer-grad-3)"/>    <!-- Summer II 1980-1987 -->
+      <rect x="1026"   y="60" width="129"   height="160" fill="url(#winter-grad-3)"/>    <!-- Winter II 1987-1993 -->
+      <rect x="1155"   y="60" width="408.5" height="160" fill="rgba(20,20,20,0.04)"/>    <!-- Quiet 1993-2012 -->
+      <rect x="1563.5" y="60" width="301"   height="160" fill="url(#summer-grad-3)"/>    <!-- Summer III 2012-2026 -->
+
+      <!-- VR bands (lane 2) -->
+      <rect x="80"     y="280" width="903"   height="160" fill="rgba(20,20,20,0.04)"/>   <!-- pre-history 1943-1985 -->
+      <rect x="983"    y="280" width="236.5" height="160" fill="url(#summer-grad-3)"/>   <!-- Summer 1: 1985-1996 -->
+      <rect x="1219.5" y="280" width="344"   height="160" fill="url(#winter-grad-3)"/>   <!-- Winter 1: 1996-2012 -->
+      <rect x="1563.5" y="280" width="129"   height="160" fill="url(#summer-grad-3)"/>   <!-- Summer 2 Oculus: 2012-2018 -->
+      <rect x="1692.5" y="280" width="43"    height="160" fill="rgba(45,74,94,0.10)"/>   <!-- Trough: 2018-2020 -->
+      <rect x="1735.5" y="280" width="43"    height="160" fill="url(#summer-grad-3)"/>   <!-- Metaverse summer: 2020-2022 -->
+      <rect x="1778.5" y="280" width="43"    height="160" fill="url(#winter-grad-3)"/>   <!-- Metaverse winter: 2022-2024 -->
+      <rect x="1821.5" y="280" width="43"    height="160" fill="rgba(217,122,44,0.10)"/> <!-- Spatial: 2024-2026 -->
+
+      <!-- lane labels -->
+      <text x="68" y="78" class="lane-label" text-anchor="end" fill="var(--ai)">AI</text>
+      <text x="68" y="298" class="lane-label" text-anchor="end" fill="var(--vr)">VR /<tspan x="68" dy="14">Meta-</tspan><tspan x="68" dy="14">verse</tspan></text>
+
+      <!-- center lines -->
+      <line x1="80" y1="140" x2="1865" y2="140" stroke="var(--ai)" stroke-width="1.4" opacity="0.85"/>
+      <line x1="80" y1="360" x2="1865" y2="360" stroke="var(--vr)" stroke-width="1.4" opacity="0.85"/>
+
+      <!-- Period boundary year axis — AI lane row + VR lane row, with faint decade gridlines -->
+      <g>
+        <!-- faint decade reference ticks (no text) -->
+        <line x1="230.5"  y1="440" x2="230.5"  y2="446" stroke="var(--ink-mute)" stroke-width="0.4" opacity="0.45"/>
+        <line x1="445.5"  y1="440" x2="445.5"  y2="446" stroke="var(--ink-mute)" stroke-width="0.4" opacity="0.45"/>
+        <line x1="660.5"  y1="440" x2="660.5"  y2="446" stroke="var(--ink-mute)" stroke-width="0.4" opacity="0.45"/>
+        <line x1="1090.5" y1="440" x2="1090.5" y2="446" stroke="var(--ink-mute)" stroke-width="0.4" opacity="0.45"/>
+        <line x1="1305.5" y1="440" x2="1305.5" y2="446" stroke="var(--ink-mute)" stroke-width="0.4" opacity="0.45"/>
+        <line x1="1520.5" y1="440" x2="1520.5" y2="446" stroke="var(--ink-mute)" stroke-width="0.4" opacity="0.45"/>
+
+        <!-- ===== AI lane period boundaries (row 1, y=474) ===== -->
+        <text x="68" y="474" class="yr-axis" text-anchor="end" fill="var(--ai)" font-size="9" letter-spacing="0.08em" opacity="0.7">AI</text>
+        <line x1="80"     y1="448" x2="80"     y2="456" stroke="var(--highlight)" stroke-width="2"/>
+        <text x="80"     y="474" class="yr-axis-period" fill="var(--highlight)" text-anchor="start">1943</text>
+        <line x1="359.5"  y1="448" x2="359.5"  y2="456" stroke="var(--summer)" stroke-width="2"/>
+        <text x="359.5"  y="474" class="yr-axis-period" fill="var(--summer)" text-anchor="middle">1956</text>
+        <line x1="746.5"  y1="448" x2="746.5"  y2="456" stroke="var(--winter)" stroke-width="2"/>
+        <text x="746.5"  y="474" class="yr-axis-period" fill="var(--winter)" text-anchor="middle">1974</text>
+        <line x1="875.5"  y1="448" x2="875.5"  y2="456" stroke="var(--summer)" stroke-width="2"/>
+        <text x="875.5"  y="474" class="yr-axis-period" fill="var(--summer)" text-anchor="middle">1980</text>
+        <line x1="1026"   y1="448" x2="1026"   y2="456" stroke="var(--winter)" stroke-width="2"/>
+        <text x="1026"   y="474" class="yr-axis-period" fill="var(--winter)" text-anchor="middle">1987</text>
+        <line x1="1155"   y1="448" x2="1155"   y2="456" stroke="var(--ink-mute)" stroke-width="2"/>
+        <text x="1155"   y="474" class="yr-axis-period" fill="var(--ink-mute)" text-anchor="middle">1993</text>
+        <line x1="1563.5" y1="448" x2="1563.5" y2="456" stroke="var(--summer)" stroke-width="2"/>
+        <text x="1563.5" y="474" class="yr-axis-period" fill="var(--summer)" text-anchor="middle">2012</text>
+        <line x1="1864.5" y1="448" x2="1864.5" y2="456" stroke="var(--ai)" stroke-width="2"/>
+        <text x="1864.5" y="474" class="yr-axis-period" fill="var(--ai)" text-anchor="end">2026</text>
+
+        <!-- ===== VR lane period boundaries (row 2, y=496) ===== -->
+        <text x="68" y="496" class="yr-axis" text-anchor="end" fill="var(--vr)" font-size="9" letter-spacing="0.08em" opacity="0.7">VR</text>
+        <line x1="488.5"  y1="482" x2="488.5"  y2="490" stroke="var(--ink-mute)" stroke-width="2"/>
+        <text x="488.5"  y="496" class="yr-axis-period" fill="var(--ink-mute)" text-anchor="middle">1962</text>
+        <line x1="983"    y1="482" x2="983"    y2="490" stroke="var(--summer)" stroke-width="2"/>
+        <text x="983"    y="496" class="yr-axis-period" fill="var(--summer)" text-anchor="middle">1985</text>
+        <line x1="1219.5" y1="482" x2="1219.5" y2="490" stroke="var(--winter)" stroke-width="2"/>
+        <text x="1219.5" y="496" class="yr-axis-period" fill="var(--winter)" text-anchor="middle">1996</text>
+        <line x1="1692.5" y1="482" x2="1692.5" y2="490" stroke="var(--winter)" stroke-width="2"/>
+        <text x="1692.5" y="496" class="yr-axis-period" fill="var(--winter)" text-anchor="middle">2018</text>
+        <line x1="1735.5" y1="482" x2="1735.5" y2="490" stroke="var(--summer)" stroke-width="2"/>
+        <text x="1735.5" y="496" class="yr-axis-period" fill="var(--summer)" text-anchor="middle">2020</text>
+        <line x1="1778.5" y1="482" x2="1778.5" y2="490" stroke="var(--winter)" stroke-width="2"/>
+        <text x="1778.5" y="496" class="yr-axis-period" fill="var(--winter)" text-anchor="middle">2022</text>
+        <line x1="1821.5" y1="482" x2="1821.5" y2="490" stroke="var(--highlight)" stroke-width="2"/>
+        <text x="1821.5" y="496" class="yr-axis-period" fill="var(--highlight)" text-anchor="middle">2024</text>
+      </g>
+
+      <!-- Vertical correlation guides at decade markers -->
+      <g stroke="var(--ink-mute)" stroke-dasharray="1 4" stroke-width="0.4" opacity="0.7">
+        <line x1="230.5" y1="60" x2="230.5" y2="440"/>
+        <line x1="445.5" y1="60" x2="445.5" y2="440"/>
+        <line x1="660.5" y1="60" x2="660.5" y2="440"/>
+        <line x1="875.5" y1="60" x2="875.5" y2="440"/>
+        <line x1="1090.5" y1="60" x2="1090.5" y2="440"/>
+        <line x1="1305.5" y1="60" x2="1305.5" y2="440"/>
+        <line x1="1520.5" y1="60" x2="1520.5" y2="440"/>
+        <line x1="1735.5" y1="60" x2="1735.5" y2="440"/>
+      </g>
+
+      <!-- ============== AI EVENTS COMPACT ============== -->
+      <!-- 1943 McCulloch & Pitts -->
+      <g class="event" data-title="McCulloch & Pitts (1943)" data-year="AI lane" data-body="Foundational paper showing threshold neuron networks compute any logical function. AI's mathematical seed, twenty-five years before Sutherland's HMD." data-conf="" data-tone="gold">
+        <line x1="80" y1="140" x2="80" y2="92" stroke="var(--highlight)" stroke-width="1.6"/>
+        <circle cx="80" cy="92" r="4.5" fill="var(--highlight)" stroke="var(--ai)" stroke-width="0.8"/>
+        <text x="84" y="80" class="ev-year">1943 McCulloch &amp; Pitts</text>
+        <text x="84" y="68" class="ev-text-soft">first computational neuron</text>
+      <circle class="hit" cx="80" cy="92" r="14"/></g>
+      <!-- 1949 Hebb -->
+      <g class="event" data-title="Hebb's learning rule (1949)" data-year="AI lane" data-body="First credible biological learning rule. Synaptic strengthening when neurons co-fire — direct ancestor of modern NN training." data-conf="" data-tone="gold"><circle cx="209" cy="140" r="2.5" fill="var(--highlight)"/><text x="213" y="132" class="ev-year">’49 Hebb</text><circle class="hit" cx="209" cy="140" r="14"/></g>
+      <!-- 1950 Turing -->
+      <g class="event" data-title="Turing — Imitation Game (1950)" data-year="AI lane" data-body="Frames the philosophical question the field will inherit." data-conf="" data-tone="gold"><line x1="230.5" y1="140" x2="230.5" y2="178" stroke="var(--highlight)" stroke-width="1"/><circle cx="230.5" cy="178" r="3" fill="var(--highlight)"/><text x="234.5" y="190" class="ev-year">’50 Turing test</text><circle class="hit" cx="230.5" cy="178" r="14"/></g>
+      <!-- 1956 Dartmouth -->
+      <g class="event" data-title="Dartmouth Workshop (1956)" data-year="AI lane" data-body="McCarthy coins 'AI'. Field gets a name and a funding pitch." data-conf="" data-tone="ai"><line x1="359.5" y1="140" x2="359.5" y2="100" stroke="var(--ai)" stroke-width="1"/><circle cx="359.5" cy="100" r="3.5" fill="var(--ai)"/><text x="363.5" y="92" class="ev-year">’56 Dartmouth</text><circle class="hit" cx="359.5" cy="100" r="14"/></g>
+      <!-- 1969 Perceptrons -->
+      <g class="event" data-title="Minsky &amp; Papert — Perceptrons (1969)" data-year="AI lane" data-body="XOR limit interpreted as fundamental NN failure. Kills neural network research for ~17 years." data-conf="" data-tone="winter"><line x1="639" y1="140" x2="639" y2="180" stroke="var(--winter)" stroke-width="1"/><circle cx="639" cy="180" r="3" fill="var(--winter)"/><text x="643" y="194" class="ev-year">’69 Perceptron</text><circle class="hit" cx="639" cy="180" r="14"/></g>
+      <!-- 1973 Lighthill -->
+      <g class="event" data-title="Lighthill Report (1973)" data-year="AI lane" data-body="UK Science Research Council declares AI a failure. Funding withdrawn — first AI winter begins." data-conf="" data-tone="winter"><line x1="725" y1="140" x2="725" y2="200" stroke="var(--winter)" stroke-width="1"/><circle cx="725" cy="200" r="3" fill="var(--winter)"/><text x="729" y="214" class="ev-year">’73 Lighthill</text><circle class="hit" cx="725" cy="200" r="14"/></g>
+      <!-- 1980 XCON -->
+      <g class="event" data-title="DEC's XCON expert system (1980)" data-year="AI lane" data-body="$40M/yr in DEC savings. Triggers the second AI summer of expert-system startups." data-conf="" data-tone="ai"><line x1="875.5" y1="140" x2="875.5" y2="100" stroke="var(--ai)" stroke-width="1"/><circle cx="875.5" cy="100" r="3" fill="var(--ai)"/><text x="879.5" y="92" class="ev-year">’80 XCON</text><circle class="hit" cx="875.5" cy="100" r="14"/></g>
+      <!-- 1987 LISP collapse -->
+      <g class="event" data-title="LISP machine market collapse (1987)" data-year="AI lane" data-body="Symbolics, LMI, TI Explorer collapse. Trigger event of the second AI winter." data-conf="" data-tone="winter"><line x1="1026" y1="140" x2="1026" y2="200" stroke="var(--winter)" stroke-width="1"/><circle cx="1026" cy="200" r="3" fill="var(--winter)"/><text x="1030" y="214" class="ev-year">’87 LISP collapse</text><circle class="hit" cx="1026" cy="200" r="14"/></g>
+      <!-- 2006 Hinton DBN -->
+      <g class="event" data-title="Hinton — Deep Belief Networks (2006)" data-year="AI lane" data-body="Neural networks rebranded as 'deep learning.' Layer-wise pretraining solves vanishing gradients. Quiet but pivotal." data-conf="" data-tone="ai"><circle cx="1434.5" cy="140" r="2.5" fill="var(--ai)"/><text x="1438.5" y="132" class="ev-year">’06 deep learning</text><circle class="hit" cx="1434.5" cy="140" r="14"/></g>
+      <!-- 2012 AlexNet -->
+      <g class="event" data-title="AlexNet wins ImageNet (2012)" data-year="AI lane" data-body="Deep CNN on two GTX 580 GPUs halves the error rate. THE ignition of the modern deep-learning era. Same year as the Oculus Kickstarter — both ride the commodity-GPU wave." data-conf="" data-tone="ai"><line x1="1563.5" y1="140" x2="1563.5" y2="92" stroke="var(--ai)" stroke-width="1.4"/><circle cx="1563.5" cy="92" r="4" fill="var(--ai)"/><text x="1567.5" y="80" class="ev-year">’12 AlexNet</text><circle class="hit" cx="1563.5" cy="92" r="14"/></g>
+      <!-- 2017 Transformer -->
+      <g class="event" data-title="Vaswani et al. — Attention Is All You Need (2017)" data-year="AI lane" data-body="Self-attention replaces RNN/CNN. Foundation of every subsequent LLM — BERT, GPT, Claude, Gemini." data-conf="" data-tone="ai"><line x1="1671" y1="140" x2="1671" y2="200" stroke="var(--ai)" stroke-width="1.4"/><circle cx="1671" cy="200" r="4" fill="var(--ai)"/><text x="1675" y="214" class="ev-year">’17 Transformer</text><circle class="hit" cx="1671" cy="200" r="14"/></g>
+      <!-- Nov 2022 ChatGPT -->
+      <g class="event" data-title="ChatGPT (30 Nov 2022)" data-year="AI lane" data-body="100M users in 2 months. Generative AI becomes mainstream — and absorbs the capital, GPUs, and attention previously flowing to the metaverse." data-conf="" data-tone="ai"><line x1="1778.5" y1="140" x2="1778.5" y2="78" stroke="var(--ai)" stroke-width="1.8"/><circle cx="1778.5" cy="78" r="5.5" fill="var(--ai)"/><text x="1782.5" y="68" class="ev-year">Nov ’22 ChatGPT</text><circle class="hit" cx="1778.5" cy="78" r="14"/></g>
+
+      <!-- ============== VR EVENTS COMPACT ============== -->
+      <!-- 1968 Sword of Damocles -->
+      <g class="event" data-title="Sutherland's Sword of Damocles (1968)" data-year="VR lane" data-body="First head-mounted display. Tethered, ceiling-suspended, stereoscopic. VR begins — twenty-five years after AI." data-conf="" data-tone="vr"><circle cx="617.5" cy="360" r="2.5" fill="var(--vr)"/><text x="621.5" y="356" class="ev-year">’68 HMD</text><circle class="hit" cx="617.5" cy="360" r="14"/></g>
+      <!-- 1984 VPL -->
+      <g class="event" data-title="VPL Research founded (1984)" data-year="VR lane" data-body="Lanier coins 'virtual reality' as a marketing term. First commercial VR company." data-conf="" data-tone="vr"><line x1="961.5" y1="360" x2="961.5" y2="320" stroke="var(--vr)" stroke-width="1"/><circle cx="961.5" cy="320" r="3" fill="var(--vr)"/><text x="965.5" y="312" class="ev-year">’84 VPL</text><circle class="hit" cx="961.5" cy="320" r="14"/></g>
+      <!-- 1992 Snow Crash -->
+      <g class="event" data-title="Stephenson — Snow Crash (1992)" data-year="VR lane" data-body="Coins 'metaverse.' Same year as Lawnmower Man. Cultural peak of the first VR hype cycle." data-conf="" data-tone="vr"><line x1="1133.5" y1="360" x2="1133.5" y2="316" stroke="var(--vr)" stroke-width="1.4"/><circle cx="1133.5" cy="316" r="4" fill="var(--vr)"/><text x="1137.5" y="306" class="ev-year">’92 Snow Crash</text><circle class="hit" cx="1133.5" cy="316" r="14"/></g>
+      <!-- 1995 Virtual Boy -->
+      <g class="event" data-title="Nintendo Virtual Boy flops (1995)" data-year="VR lane" data-body="Canonical artefact of why 1990s VR couldn't deliver — silicon and optics simply weren't ready. Trigger of the first VR winter." data-conf="" data-tone="winter"><line x1="1198" y1="360" x2="1198" y2="408" stroke="var(--winter)" stroke-width="1.4"/><circle cx="1198" cy="408" r="4" fill="var(--winter)"/><text x="1202" y="422" class="ev-year">’95 Virtual Boy</text><circle class="hit" cx="1198" cy="408" r="14"/></g>
+      <!-- 2003 Second Life -->
+      <g class="event" data-title="Second Life launches (2003)" data-year="VR lane" data-body="Linden Lab's screen-based metaverse precursor. ~1M active users by 2007." data-conf="" data-tone="vr"><circle cx="1370" cy="360" r="2.5" fill="var(--vr)"/><text x="1374" y="356" class="ev-year">’03 Second Life</text><circle class="hit" cx="1370" cy="360" r="14"/></g>
+      <!-- 2012 Oculus Kickstarter -->
+      <g class="event" data-title="Oculus Rift Kickstarter (Aug 2012)" data-year="VR lane" data-body="Palmer Luckey raises $2.4M. Same hardware wave as AlexNet. THE ignition of modern VR." data-conf="" data-tone="vr"><line x1="1563.5" y1="360" x2="1563.5" y2="320" stroke="var(--vr)" stroke-width="1.4"/><circle cx="1563.5" cy="320" r="4" fill="var(--vr)"/><text x="1567.5" y="312" class="ev-year">’12 Oculus KS</text><circle class="hit" cx="1563.5" cy="320" r="14"/></g>
+      <!-- 2014 FB acquires Oculus -->
+      <g class="event" data-title="Facebook acquires Oculus (Mar 2014)" data-year="VR lane" data-body="$2B acquisition. Same year Google acquires DeepMind — parallel bets across both fields." data-conf="" data-tone="vr"><line x1="1606.5" y1="360" x2="1606.5" y2="406" stroke="var(--vr)" stroke-width="1"/><circle cx="1606.5" cy="406" r="3" fill="var(--vr)"/><text x="1610.5" y="420" class="ev-year">’14 FB → Oculus</text><circle class="hit" cx="1606.5" cy="406" r="14"/></g>
+      <!-- 2020 Quest 2 -->
+      <g class="event" data-title="Quest 2 launches (Oct 2020)" data-year="VR lane" data-body="$299 price point. ~20M+ units. Best-selling VR headset ever. COVID-fuelled adoption." data-conf="" data-tone="vr"><line x1="1735.5" y1="360" x2="1735.5" y2="316" stroke="var(--vr)" stroke-width="1"/><circle cx="1735.5" cy="316" r="3.5" fill="var(--vr)"/><text x="1739.5" y="308" class="ev-year">’20 Quest 2</text><circle class="hit" cx="1735.5" cy="316" r="14"/></g>
+      <!-- Oct 2021 Meta rebrand -->
+      <g class="event" data-title="Facebook → Meta (28 Oct 2021)" data-year="VR lane" data-body="Defining moment of metaverse hype. Tens of billions pledged to Reality Labs." data-conf="" data-tone="vr"><line x1="1757" y1="360" x2="1757" y2="408" stroke="var(--vr)" stroke-width="1.8"/><circle cx="1757" cy="408" r="5.5" fill="var(--vr)"/><text x="1761" y="422" class="ev-year">’21 Meta rebrand</text><circle class="hit" cx="1757" cy="408" r="14"/></g>
+      <!-- 2024 Vision Pro -->
+      <g class="event" data-title="Apple Vision Pro (Feb 2024)" data-year="VR lane" data-body="$3,499. 'Spatial computing' rebrand. Production targets cut within a year." data-conf="" data-tone="vr"><line x1="1821.5" y1="360" x2="1821.5" y2="324" stroke="var(--vr)" stroke-width="1.2"/><circle cx="1821.5" cy="324" r="3.5" fill="var(--vr)"/><text x="1825.5" y="316" class="ev-year">’24 Vision Pro</text><circle class="hit" cx="1821.5" cy="324" r="14"/></g>
+
+      <!-- ============== INTERACTION ANNOTATIONS ============== -->
+
+      <!-- Foundations callout — pre-AI conceptual seed for VR too -->
+      <g>
+        <path d="M 80 196 Q 220 240 80 320" fill="none" stroke="var(--highlight)" stroke-width="0.6" stroke-dasharray="3 3" opacity="0.6"/>
+        <text x="155" y="252" class="annot" font-size="11" fill="var(--highlight)">conceptual seed —<tspan x="155" dy="14">VR will not start for 25 yrs</tspan></text>
+      </g>
+
+      <!-- 1990s shared trough -->
+      <g>
+        <path d="M 1090 252 Q 1180 240 1230 252" fill="none" stroke="var(--ink-mute)" stroke-width="0.6" stroke-dasharray="2 3"/>
+        <text x="1160" y="244" class="annot" text-anchor="middle" font-size="11">double winter — both fields out of money</text>
+      </g>
+
+      <!-- 2012 ignition correlation -->
+      <g>
+        <line x1="1563.5" y1="160" x2="1563.5" y2="300" stroke="var(--highlight)" stroke-width="1" stroke-dasharray="4 3" opacity="0.85"/>
+        <text x="1569.5" y="252" class="annot" font-size="11" fill="var(--highlight)">2012 — both ignite</text>
+      </g>
+
+      <!-- 2020-2022 dual peak -->
+      <g>
+        <rect x="1730" y="64" width="50" height="372" fill="rgba(217,122,44,0.07)" stroke="var(--summer)" stroke-width="0.5" stroke-dasharray="2 3"/>
+        <text x="1755" y="520" class="annot" text-anchor="middle" font-size="11" fill="var(--summer)">COVID dual-summer 2020–22</text>
+      </g>
+
+      <!-- 2022-2024 anti-correlation: AI absorbs metaverse oxygen -->
+      <g>
+        <path d="M 1778.5 100 Q 1815 230 1778.5 380" fill="none" stroke="var(--ai)" stroke-width="1.2" stroke-dasharray="3 3"/>
+        <polygon points="1778.5,378 1774.5,370 1782.5,370" fill="var(--ai)"/>
+        <text x="1830" y="252" class="annot" font-size="11" fill="var(--ai)">AI absorbs<tspan x="1830" dy="14">the oxygen</tspan></text>
+      </g>
+
+      <!-- 2014 anti-correlation note (FB Oculus during AI ImageNet years) -->
+      <g>
+        <text x="1606.5" y="540" class="annot" text-anchor="middle" font-size="11">2014 — FB bets VR · Google bets DeepMind · same year</text>
+      </g>
+
+    </svg>
+  </div>
+
+  <div class="prose">
+    <p><strong>AI has a twenty-five-year head start.</strong> The combined chart now extends to 1943, and the asymmetry is hard to miss — McCulloch &amp; Pitts published the first computational neuron the same year ENIAC was being built, while VR’s lane is empty until Sutherland’s head-mounted display in 1968 and only really populates from 1984 onward. AI is fundamentally an older field with a deeper bench of theoretical results. VR has always been catching up to a moving target.</p>
+    <p><strong>Read the combined chart vertically.</strong> The 1990s are the only true <em>shared</em> winter — expert systems collapsed and Virtual Boy flopped within two years of each other. Both fields then disappeared from headlines for roughly fifteen years while their underlying technology quietly kept improving (machine learning rebrand on one side; commodity 3D acceleration, IMUs, smartphone display panels on the other).</p>
+    <p><strong>2012 was the shared ignition year.</strong> AlexNet and the Oculus Kickstarter are within a few months of each other. This is not coincidence — both depended on commodity GPUs becoming powerful enough to do something previously confined to specialised hardware. Two years later, in 2014, Facebook bought Oculus and Google bought DeepMind. The same firms made parallel bets on both fields.</p>
+    <p><strong>The 2022–24 anti-correlation is the most consequential dynamic of the decade for anyone building in either space.</strong> ChatGPT arriving thirteen months after Facebook’s Meta rebrand redirected almost every relevant capital pool — venture, talent, executive attention, GPU allocation — toward LLMs and away from headsets. The metaverse winter is real but only partially endogenous; a large component is exogenous, an AI eclipse. <em>Confidence: high on the timing, moderate on the causal magnitude.</em></p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TAKEAWAYS                                                    -->
+  <!-- ============================================================ -->
+  <div class="takeaways">
+    <div class="take">
+      <h4>I · Different physics</h4>
+      <p>AI cycles are funding-and-credibility cycles around algorithmic claims. VR cycles are hardware-and-adoption cycles around display, optics, and silicon. Treating them as the same kind of bubble is an analytical error.</p>
+    </div>
+    <div class="take">
+      <h4>II · Books and bankruptcies</h4>
+      <p>Winters are usually triggered by a small number of nameable events: a damning report (Lighthill), a dismantling book (Perceptrons), a cancelled product (Virtual Boy), or a vendor collapse (LISP machines). They are not slow declines — they are step functions.</p>
+    </div>
+    <div class="take">
+      <h4>III · The eclipse</h4>
+      <p>Hype is a near-zero-sum resource. When ChatGPT arrived in late 2022, it didn’t merely outshine the metaverse — it cannibalised the capital, GPUs, and engineering attention that the metaverse pitch had just claimed. Spatial computing’s 2024 rebrand is in part an attempt to escape that gravity well.</p>
+    </div>
+  </div>
+
+  <footer class="colophon">
+    <span>Compiled May 2026 · Dr. George Papagiannakis · ORamaVR · FORTH-ICS · University of Crete</span>
+    <span>Designed and produced with the assistance of Anthropic Claude</span>
+    <span>Confidence flagged inline · prose interprets, charts report · Set in Fraunces, IBM Plex Sans, JetBrains Mono</span>
+  </footer>
+
+</div>
+
+<!-- Floating tooltip element -->
+<div id="cb-tooltip" role="tooltip" aria-hidden="true"></div>
+
+<script>
+(function() {
+  'use strict';
+  const tip = document.getElementById('cb-tooltip');
+  let activeEl = null;
+
+  function show(el, evt) {
+    if (!el) return;
+    activeEl = el;
+    const title = el.dataset.title || '';
+    const year  = el.dataset.year  || '';
+    const body  = el.dataset.body  || '';
+    const conf  = el.dataset.conf  || '';
+    const tone  = el.dataset.tone  || 'ai';
+
+    let html = '';
+    if (year) html += '<div class="tt-year">' + year + '</div>';
+    if (title) html += '<h4>' + title + '</h4>';
+    if (body) html += '<div class="tt-body">' + body + '</div>';
+    if (conf) html += '<div class="tt-conf">' + conf + '</div>';
+    tip.innerHTML = html;
+
+    tip.className = 'tone-' + tone;
+    tip.classList.add('show');
+    tip.setAttribute('aria-hidden', 'false');
+    position(evt);
+  }
+
+  function position(evt) {
+    if (!activeEl) return;
+    const x = evt.clientX;
+    const y = evt.clientY;
+    const r = tip.getBoundingClientRect();
+    const margin = 14;
+    // Prefer to the right of cursor; flip to left if no room
+    let left = x + 18;
+    if (left + r.width + margin > window.innerWidth) {
+      left = x - r.width - 18;
+    }
+    if (left < margin) left = margin;
+    // Vertically center on cursor; clamp to viewport
+    let top = y;
+    if (top - r.height/2 < margin) top = r.height/2 + margin;
+    if (top + r.height/2 > window.innerHeight - margin) top = window.innerHeight - r.height/2 - margin;
+    tip.style.left = left + 'px';
+    tip.style.top  = top + 'px';
+  }
+
+  function hide() {
+    activeEl = null;
+    tip.classList.remove('show');
+    tip.setAttribute('aria-hidden', 'true');
+  }
+
+  // Delegate from document for any element with .event class
+  document.addEventListener('mouseover', function(e) {
+    const el = e.target.closest('.event[data-title]');
+    if (el && el !== activeEl) show(el, e);
+  });
+  document.addEventListener('mousemove', function(e) {
+    if (activeEl) {
+      const el = e.target.closest('.event[data-title]');
+      if (el !== activeEl) {
+        if (el) show(el, e);
+        else hide();
+        return;
+      }
+      position(e);
+    }
+  });
+  document.addEventListener('mouseout', function(e) {
+    if (!activeEl) return;
+    const to = e.relatedTarget;
+    if (!to || !to.closest || !to.closest('.event[data-title]')) hide();
+  });
+  // Hide on scroll to avoid stale position
+  window.addEventListener('scroll', hide, true);
+  window.addEventListener('resize', hide);
+})();
+</script>
+
+</body>
+</html>

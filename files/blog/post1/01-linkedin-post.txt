@@ -1,0 +1,23 @@
+The chart says VR had a winter.
+
+I was inside it. There wasn't one.
+
+In 2002 — when most cycle charts mark the deepest point of VR's "dead years" — I was at MIRALab in Geneva with Prof. Nadia Magnenat Thalmann, deploying life-size augmented reality characters at Pompeii (LIFEPLUS — ranked #1 of 150 EU IST proposals that year) and writing some of the earliest serious VR code for medical emergency training (the JUST project).
+
+Both shipped in 2002. Both inside what the headlines called a wasteland.
+
+It was not a wasteland. We were rendering Roman patricians on a Pentium III with vertex shaders that hadn't existed three years earlier. We were debugging lip-sync at 25 fps. We were laying down the substrate of every medical VR product on the market today — including the platform I would later build at ORamaVR.
+
+The chart tracks headlines, capital, product launches. It does not track substrate. And substrate is what eventually decides everything.
+
+The 2022–2024 "metaverse winter" is the same optical illusion. Reality Labs lost $46B and the press turned — but in those exact three years 3D Gaussian Splatting matured, passthrough optics reached consumer comfort, our MAGES clinical-RCT evidence crossed statistical significance, and ChatGPT arrived with what turns out to be VR's long-missing piece: a content-production layer cheap enough to actually fill the metaverse.
+
+ChatGPT did not eclipse VR. ChatGPT finished it.
+
+I wrote a longer essay with the full 83-year AI + VR cycle timeline I produced with Claude. If you've been in either field for more than ten years, I'd genuinely like to hear whether this matches your view from inside.
+
+Link in the first comment.
+
+— GP
+
+#VirtualReality #MedicalXR #SpatialComputing #ComputerGraphics #GenerativeAI

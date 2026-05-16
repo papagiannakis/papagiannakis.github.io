@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" width="1080" height="1350">
+  <defs>
+    <pattern id="hatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="6" stroke="#c79a3b" stroke-width="1.2" opacity="0.45"/>
+    </pattern>
+    <style>
+      .title-l1   { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; font-size: 64px; fill: #141414; }
+      .title-l2   { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; font-size: 64px; fill: #b8341a; }
+      .subtitle   { font-family: Georgia, serif; font-style: italic; font-size: 22px; fill: #3a3833; }
+      .lane-label { font-family: Georgia, serif; font-weight: 700; font-size: 22px; }
+      .yr-major   { font-family: 'Courier New', monospace; font-weight: 700; font-size: 18px; fill: #141414; }
+      .yr-axis    { font-family: 'Courier New', monospace; font-size: 14px; fill: #6b6760; }
+      .period-lbl { font-family: Georgia, serif; font-style: italic; font-weight: 700; font-size: 14px; }
+      .period-sm  { font-family: Georgia, serif; font-style: italic; font-weight: 700; font-size: 12px; }
+      .event-lbl  { font-family: Georgia, serif; font-weight: 600; font-size: 14px; fill: #141414; }
+      .event-yr   { font-family: 'Courier New', monospace; font-weight: 700; font-size: 16px; }
+      .annot      { font-family: Georgia, serif; font-style: italic; font-size: 18px; fill: #141414; }
+      .annot-sm   { font-family: Georgia, serif; font-style: italic; font-size: 16px; fill: #3a3833; }
+      .byline     { font-family: 'Courier New', monospace; font-size: 14px; fill: #3a3833; letter-spacing: 1px; }
+      .url        { font-family: 'Courier New', monospace; font-weight: 700; font-size: 16px; fill: #b8341a; letter-spacing: 0.5px; }
+      .badge      { font-family: 'Courier New', monospace; font-weight: 700; font-size: 13px; fill: #6b6760; letter-spacing: 2px; }
+    </style>
+  </defs>
+
+  <rect width="1080" height="1350" fill="#f3eee2"/>
+
+  <!-- Top eyebrow -->
+  <text x="80" y="100" class="badge">ESSAY · MAY 2026</text>
+  <line x1="80" y1="118" x2="1000" y2="118" stroke="#141414" stroke-width="1.5"/>
+
+  <!-- Headline -->
+  <text x="80" y="220" class="title-l1">I was inside the</text>
+  <text x="80" y="296" class="title-l1">VR winter.</text>
+  <text x="80" y="392" class="title-l2">There wasn't one.</text>
+
+  <!-- Subtitle -->
+  <text x="80" y="450" class="subtitle">An eighty-year cycle chart of AI + VR —</text>
+  <text x="80" y="480" class="subtitle">and what it gets wrong from inside the substrate.</text>
+
+  <!-- ============ TIMELINE BLOCK ============ -->
+  <!-- x(year) = 110 + (year - 1943) * 10.72 -->
+
+  <!-- AI lane label -->
+  <text x="80" y="585" class="lane-label" fill="#b8341a">AI</text>
+
+  <!-- AI lane y=600..660 -->
+  <rect x="110" y="600" width="139" height="60" fill="url(#hatch)"/>
+  <rect x="110" y="600" width="139" height="60" fill="#c79a3b" opacity="0.1"/>
+  <rect x="249" y="600" width="193" height="60" fill="#d97a2c" opacity="0.55"/>
+  <rect x="442" y="600" width="65"  height="60" fill="#2d4a5e" opacity="0.55"/>
+  <rect x="507" y="600" width="75"  height="60" fill="#d97a2c" opacity="0.55"/>
+  <rect x="582" y="600" width="64"  height="60" fill="#2d4a5e" opacity="0.55"/>
+  <rect x="646" y="600" width="204" height="60" fill="#9e9690" opacity="0.30"/>
+  <rect x="850" y="600" width="150" height="60" fill="#d97a2c" opacity="0.75"/>
+
+  <!-- AI period labels - cleaned up, BIG periods labeled inside, SHORT periods labeled below -->
+  <text x="180"  y="635" class="period-lbl" text-anchor="middle" fill="#a07020">Foundations</text>
+  <text x="345"  y="635" class="period-lbl" text-anchor="middle" fill="#a55a16">Summer I</text>
+  <text x="700"  y="635" class="period-lbl" text-anchor="end" fill="#3a3833">"ML" quiet rebrand</text>
+  <!-- Short period labels below the band -->
+  <text x="474"  y="685" class="period-sm" text-anchor="middle" fill="#1a3344">Winter I</text>
+  <text x="544"  y="685" class="period-sm" text-anchor="middle" fill="#a55a16">Sum. II</text>
+  <text x="614"  y="685" class="period-sm" text-anchor="middle" fill="#1a3344">Winter II</text>
+  <!-- Summer III label moved out of star path: anchor right inside the box -->
+  <text x="868"  y="635" class="period-lbl" text-anchor="start" fill="#a55a16">Summer III · DL</text>
+
+  <!-- Divider -->
+  <line x1="110" y1="720" x2="1000" y2="720" stroke="#1a1a1a" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- VR lane label -->
+  <text x="80" y="770" class="lane-label" fill="#0d6e7d">VR</text>
+
+  <!-- VR lane y=785..845 -->
+  <rect x="314" y="785" width="246" height="60" fill="#9e9690" opacity="0.30"/>
+  <rect x="560" y="785" width="118" height="60" fill="#d97a2c" opacity="0.55"/>
+  <rect x="678" y="785" width="172" height="60" fill="#2d4a5e" opacity="0.55"/>
+  <rect x="850" y="785" width="64"  height="60" fill="#d97a2c" opacity="0.55"/>
+  <rect x="914" y="785" width="22"  height="60" fill="#2d4a5e" opacity="0.35"/>
+  <rect x="936" y="785" width="22"  height="60" fill="#d97a2c" opacity="0.65"/>
+  <rect x="957" y="785" width="22"  height="60" fill="#2d4a5e" opacity="0.65"/>
+  <rect x="979" y="785" width="21"  height="60" fill="#c79a3b" opacity="0.55"/>
+
+  <!-- VR period labels - main periods inside -->
+  <text x="437"  y="820" class="period-lbl" text-anchor="middle" fill="#3a3833">Pre-history</text>
+  <text x="619"  y="820" class="period-lbl" text-anchor="middle" fill="#a55a16">VPL era</text>
+  <!-- "VR is dead" label shifted LEFT so it doesn't collide with the 2002 star -->
+  <text x="640"  y="820" class="period-lbl" text-anchor="end"    fill="#a55a16"></text>
+  <text x="710"  y="870" class="period-sm" text-anchor="end"  fill="#1a3344">Winter · "VR is dead"</text>
+  <text x="882"  y="820" class="period-lbl" text-anchor="middle" fill="#a55a16">Oculus</text>
+
+  <!-- ====== KEY MARKERS ====== -->
+  <!-- 2002 PERSONAL ANCHOR -->
+  <line x1="743" y1="555" x2="743" y2="860" stroke="#c79a3b" stroke-width="2.5" stroke-dasharray="4,3" opacity="0.85"/>
+  <!-- AI lane star -->
+  <g transform="translate(743, 630) scale(1.5)">
+    <path d="M0,-12 L3.7,-3.7 L12,-3.7 L5.4,2.2 L8.4,11 L0,5.7 L-8.4,11 L-5.4,2.2 L-12,-3.7 L-3.7,-3.7 Z"
+          fill="#c79a3b" stroke="#b8341a" stroke-width="1.5"/>
+  </g>
+  <!-- VR lane star -->
+  <g transform="translate(743, 815) scale(1.7)">
+    <path d="M0,-12 L3.7,-3.7 L12,-3.7 L5.4,2.2 L8.4,11 L0,5.7 L-8.4,11 L-5.4,2.2 L-12,-3.7 L-3.7,-3.7 Z"
+          fill="#c79a3b" stroke="#b8341a" stroke-width="1.5"/>
+  </g>
+  <text x="743" y="545" class="event-yr" fill="#c79a3b" text-anchor="middle">2002</text>
+
+  <!-- 2012 marker -->
+  <circle cx="850" cy="630" r="6" fill="#b8341a" stroke="#141414" stroke-width="1.5"/>
+  <circle cx="850" cy="815" r="6" fill="#0d6e7d" stroke="#141414" stroke-width="1.5"/>
+  <text x="850" y="545" class="event-yr" fill="#141414" text-anchor="middle">2012</text>
+
+  <!-- 2022 ChatGPT marker -->
+  <circle cx="957" cy="630" r="7" fill="#b8341a" stroke="#141414" stroke-width="1.5"/>
+  <text x="957" y="545" class="event-yr" fill="#b8341a" text-anchor="middle">'22</text>
+
+  <!-- Axis years bottom -->
+  <text x="110"  y="905" class="yr-major" text-anchor="start">1943</text>
+  <text x="743"  y="905" class="yr-major" text-anchor="middle" fill="#c79a3b">2002</text>
+  <text x="850"  y="905" class="yr-major" text-anchor="middle">2012</text>
+  <text x="957"  y="905" class="yr-major" text-anchor="middle">'22</text>
+  <text x="1000" y="905" class="yr-major" text-anchor="end">'26</text>
+
+  <!-- ============ ANNOTATIONS ============ -->
+  <!-- Personal-coordinate annotation pointing to 2002.  Use SVG star instead of unicode char. -->
+  <g transform="translate(88, 957)">
+    <path d="M0,-10 L3.1,-3.1 L10,-3.1 L4.5,1.8 L7,9 L0,4.7 L-7,9 L-4.5,1.8 L-10,-3.1 L-3.1,-3.1 Z"
+          fill="#c79a3b" stroke="#b8341a" stroke-width="1.2"/>
+  </g>
+  <text x="108" y="965" class="annot">
+    <tspan font-weight="700" fill="#c79a3b">2002:</tspan>
+    <tspan> Pompeii (LIFEPLUS, ranked #1 of 150 EU IST proposals)</tspan>
+  </text>
+  <text x="80" y="995" class="annot">+ medical VR for emergency training (JUST). MIRALab Geneva.</text>
+  <text x="80" y="1025" class="annot">The "dead years" is where I was building the substrate.</text>
+
+  <!-- Thesis -->
+  <line x1="80" y1="1085" x2="1000" y2="1085" stroke="#141414" stroke-width="0.8" opacity="0.4"/>
+  <text x="80" y="1125" class="annot-sm" font-weight="700" fill="#141414">The chart tracks headlines. It does not track substrate.</text>
+  <text x="80" y="1155" class="annot-sm">ChatGPT did not eclipse VR. It finished it —</text>
+  <text x="80" y="1183" class="annot-sm">delivering the long-missing content-production layer.</text>
+
+  <!-- ============ FOOTER ============ -->
+  <line x1="80" y1="1235" x2="1000" y2="1235" stroke="#141414" stroke-width="1.5"/>
+  <text x="80" y="1273" class="byline">GEORGE PAPAGIANNAKIS</text>
+  <text x="80" y="1297" class="byline" fill="#6b6760">PROF, U. OF CRETE  ·  FOUNDER &amp; CEO, ORAMAVR</text>
+  <text x="80" y="1325" class="url">→ papagiannakis.github.io</text>
+
+  <!-- Colour key -->
+  <rect x="900" y="1263" width="14" height="14" fill="#b8341a"/>
+  <text x="922" y="1275" class="byline" fill="#3a3833">AI</text>
+  <rect x="900" y="1285" width="14" height="14" fill="#0d6e7d"/>
+  <text x="922" y="1297" class="byline" fill="#3a3833">VR</text>
+</svg>
