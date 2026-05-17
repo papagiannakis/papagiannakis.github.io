@@ -43,7 +43,7 @@ Read the technical stack quietly, year by year:
 
 - **Graphics:** fixed-function pipelines → programmable shaders → physically-based rendering → neural radiance fields [(Mildenhall et al., 2020)](#references) → 3D Gaussian splatting [(Kerbl et al., 2023)](#references). Each step adds roughly an order of magnitude of scene fidelity per watt.
 - **Tracking:** outside-in optical → IMU fusion → inside-out SLAM → passthrough re-projection at sub-twenty millisecond motion-to-photon latency.
-- **Displays:** VGA-resolution CRT helmets → 4K pancake optics with eye-tracked foveated rendering at consumer price points.
+- **Displays:** VGA-resolution CRT helmets → 4K pancake optics with eye-tracked foveated rendering at consumer price points → twin micro-OLED panels packing **23 million pixels** total (≈4K per eye) at **3,386 PPI** and a **90–120 Hz adaptive refresh rate** — the highest pixel density ever shipped in a head-mounted display.
 - **Content:** hand-modelled avatars → motion-captured → data-driven neural animation → text-conditioned generative scene synthesis.
 
 > **None of these curves were cyclical. None of them paused. They compounded in monotone, regardless of which year the headlines called a winter.**
@@ -56,7 +56,7 @@ It was a *narrative* winter, not a technical one. Reality Labs lost more than $4
 
 The continued capability of medical VR specifically — the thing the headlines decided was dead — has been documented across nearly four decades by **Walter Greenleaf** at the Stanford Virtual Human Interaction Lab and Stanford Medical Mixed Reality Center [(Weiss et al., 2021)](#references). His repeated finding, across pain management, behavioural health, surgical simulation, neurorehabilitation, and post-traumatic stress, is that medical VR has been crossing the clinical-evidence threshold for specific indications on a steady curve since the late 1990s, with no inflection point at any of the supposed winters. He has been saying this in essentially these words at essentially every major clinical conference for thirty years, and the medical literature has been catching up.
 
-> The chart shows a contraction in *coverage*. It does not show a contraction in *capability*. We have just lived through three years of headline disinterest during what is arguably the strongest period of underlying advancement since 2012.
+> The chart shows a contraction in *coverage*. It does not show a contraction in *capability*. We have just lived through *three years of headline disinterest* during what is arguably **the strongest period of underlying advancement since 2012**.
 
 ---
 
@@ -77,11 +77,11 @@ the consumer-VR moment that just ended.**
 
 ---
 
-## A closing note, to my colleagues who have been in this field as long as I have (and some even longer)
+## A closing note, to my colleagues who have lived through the cycles in the long arc of this work
 
-We have seen this pattern before. In 2002, when LIFEPLUS first walked Roman characters through Pompeii on a mobile, home-made video-see-through AR HMD, or in the JUST first medical VR simulaation training with interactive virtual humans via no-code authoring, nobody outside our community was paying attention. Twenty-four years later, the same kind of characters live in every consumer headset on the market — and the simulation framework we wrote then is recognisably the ancestor of what we build at ORamaVR now.
+We have seen this pattern before. In 2002, when LIFEPLUS first walked Roman characters through Pompeii on a mobile, home-made video-see-through AR HMD, or in the JUST first medical VR simulaation training with interactive virtual humans via no-code authoring, nobody outside our community was paying attention. Twenty-four years later, the same kind of characters live in every consumer headset on the market — and the simulation framework we wrote then is recognisably the ancestor of what many build now.
 
-We are not a lonely cohort. ACM SIGGRAPH, IEEE VR communities, CGI, MICCAI, ISMAR and so many other contributors who have been publishing through every "winter". Nadia Magnenat Thalmann at MIRALab. Walter Greenleaf at Stanford VHIL and the Medical Mixed Reality Center. The ENGAGE workshop community I co-founded with colleagues in 2016 and which now meets annually as part of Computer Graphics International (CGI) every since.  Every one of these communities has been compounding through the supposed winter, and we recognise each other across the ranks.
+We are not a lonely cohort. ACM SIGGRAPH, IEEE VR communities, CGI, MICCAI, ISMAR and so many other contributors who have been publishing through every "winter". Nadia Magnenat Thalmann at MIRALab. Walter Greenleaf at Stanford VHIL and the Medical Mixed Reality Center. The ENGAGE workshop community I co-founded with colleagues in 2016 and which now meets annually as part of Computer Graphics International (CGI) every since and keeps growing.  Every one of these communities has been compounding through the supposed winter, and we recognise each other across the ranks.
 
 The mistake we should not make twice is reading headline silence as a signal of underlying stagnation. The substrate is compounding. The unlock has just arrived. And those of us who have stayed with the work since the previous winter are sitting on more than two decades of accumulated technical advantage at exactly the moment the market is about to need it.
 
