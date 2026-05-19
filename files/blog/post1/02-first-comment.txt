@@ -1,12 +1,9 @@
-Two reads, depending on what you came here for:
+📚 Two reads, depending on what you came here for:
 
-→ Essay: https://papagiannakis.github.io/ai-vr-cycles-essay
+📝 Essay: https://papagiannakis.github.io/posts/2026/05/blog-post-2/
    The personal piece. 2002 Geneva, the substrate argument, why I think
    the metaverse winter is misnamed.
 
-→ Timeline: https://papagiannakis.github.io/ai-vr-cycles
+📊 Timeline: https://papagiannakis.github.io/posts/2026/05/blog-post-1/
    The data behind it. Interactive 83-year cycle chart, all 42 events
    with hover-context, complete reference table.
-
-[Replace both URLs above with your actual deployed page URLs before
-publishing. The exact slugs depend on your Jekyll permalink config.]
